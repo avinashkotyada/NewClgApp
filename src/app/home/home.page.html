@@ -1,0 +1,34 @@
+<ion-menu contentId='home'>
+  <ion-item (click)='onLogout()'>
+    Logout
+  </ion-item>
+</ion-menu>
+
+
+<ion-router-outlet id="home">
+ </ion-router-outlet>
+
+
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+   
+
+  <ion-tab-button tab="newsfeed">
+    <ion-icon name="person-circle"></ion-icon>
+    <ion-label>Newsfeed</ion-label>
+  </ion-tab-button>
+
+  <ion-tab-button tab="timeline">
+    <ion-icon name="map"></ion-icon>
+    <ion-label>Timeline</ion-label>
+  </ion-tab-button>
+
+  <ion-tab-button tab="settings">
+    <ion-icon name="information-circle"></ion-icon>
+    <ion-label>Settings</ion-label>
+  </ion-tab-button>
+</ion-tab-bar>
+</ion-tabs>
+
+
+
