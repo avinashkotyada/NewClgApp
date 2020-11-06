@@ -10,7 +10,6 @@ export class StudentsService {
 
   private students = new BehaviorSubject<StudentModel[]>([])
   
-  
   constructor() { }
 
   getallstudents(){
@@ -25,6 +24,18 @@ export class StudentsService {
     )
 
 
+  }
+  updateDataByIndex(student_name : string, student_email : string,student_id : string, student_profileImage : string){
+    return this.getallstudents().pipe(take(1)).subscribe(data=>{
+      const profileIndex = data.findIndex(profiles=>profiles.student_id===student_id);
+      const updatedData= [...data];
+      updatedData[profileIndex] = new StudentModel(student_name,student_email,student_id,student_profileImage);
+      this.students.next(updatedData);
+
+
+      
+
+    });
   }
 
 

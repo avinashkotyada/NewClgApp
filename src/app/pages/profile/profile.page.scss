@@ -1,0 +1,27 @@
+ion-avatar{
+    width : 100px;
+    height :100px;
+    margin: 20px auto;
+}
+
+ion-button{
+    margin: 20px auto;
+}
+
+ion-input{
+    border: 1px solid #eaeaea;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    margin: 15px 0 30px;
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 1.5;
+    width: 100%;
+
+}
+.item-label-stacked.sc-ion-input-md-h, .item-label-stacked .sc-ion-input-md-h, .item-label-floating.sc-ion-input-md-h, .item-label-floating .sc-ion-input-md-h {
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    --padding-start: 8px;
+}
+

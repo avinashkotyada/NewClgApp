@@ -27,7 +27,7 @@ export class LoginPage implements OnInit {
     this.student_name = "asd"
     this.student_email = '123@gmail.com'
     this.student_id = "123"
-    this.student_profileImage  = "asddashafkjahfkjahfkj"
+    this.student_profileImage  = "https://img.favpng.com/5/1/21/computer-icons-user-profile-avatar-female-png-favpng-cqykKc0Hpkh65ueWt6Nh2KFvS.jpg"
     
   }
 
@@ -60,6 +60,7 @@ export class LoginPage implements OnInit {
       }
 
       this.presentToast()
+      this.loginService.setUserId(this.student_id)
    
   }
 

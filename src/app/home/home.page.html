@@ -1,7 +1,31 @@
 <ion-menu contentId='home'>
-  <ion-item (click)='onLogout()'>
-    Logout
-  </ion-item>
+  <ion-list id="inbox-list">
+    <ion-menu-toggle>
+      <ion-item lines="none" routerLink="/home/profile" detail class="userInfo" button>
+        
+        <ion-avatar><ion-img [src]="profile1.student_profileImage"></ion-img></ion-avatar>
+        <div class="profile_info">
+          <ion-title>{{profile1.student_name}}</ion-title>
+          <ion-note>{{profile1.student_id}}</ion-note>
+        </div>
+        
+      </ion-item>
+    </ion-menu-toggle>
+    <ion-menu-toggle>
+      <ion-item>
+        Outpass
+      </ion-item>
+    </ion-menu-toggle>
+    <ion-menu-toggle>
+      <ion-item (click)='onLogout()'>
+        Logout
+      </ion-item>
+    </ion-menu-toggle>
+    
+
+    
+  </ion-list>
+  
 </ion-menu>
 
 
@@ -9,22 +33,22 @@
  </ion-router-outlet>
 
 
-<ion-tabs>
+<ion-tabs  >
   <ion-tab-bar slot="bottom">
    
 
   <ion-tab-button tab="newsfeed">
-    <ion-icon name="person-circle"></ion-icon>
+    <ion-icon name="home"></ion-icon>
     <ion-label>Newsfeed</ion-label>
   </ion-tab-button>
 
   <ion-tab-button tab="timeline">
-    <ion-icon name="map"></ion-icon>
+    <ion-icon name="person"></ion-icon>
     <ion-label>Timeline</ion-label>
   </ion-tab-button>
 
   <ion-tab-button tab="settings">
-    <ion-icon name="information-circle"></ion-icon>
+    <ion-icon name="settings"></ion-icon>
     <ion-label>Settings</ion-label>
   </ion-tab-button>
 </ion-tab-bar>
