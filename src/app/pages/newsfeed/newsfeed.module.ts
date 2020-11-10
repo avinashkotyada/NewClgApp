@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { NewsfeedPageRoutingModule } from './newsfeed-routing.module';
 
 import { NewsfeedPage } from './newsfeed.page';
+import { PostedUserComponent } from 'src/app/components/posted-user/posted-user.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { NewsfeedPage } from './newsfeed.page';
     IonicModule,
     NewsfeedPageRoutingModule
   ],
-  declarations: [NewsfeedPage]
+  declarations: [NewsfeedPage,PostedUserComponent]
 })
 export class NewsfeedPageModule {}

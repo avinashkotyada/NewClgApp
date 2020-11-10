@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class LoginService {
 
   private UserisLoggedIn = false
-
+ private UserId:string
   getloginstatus(){
     return this.UserisLoggedIn
   }
@@ -14,6 +14,12 @@ export class LoginService {
 
   changeloginstatus(){
     this.UserisLoggedIn = !this.UserisLoggedIn
+  }
+  setUserId(studentId){
+    this.UserId=studentId
+  }
+  getUserId(){
+    return this.UserId
   }
 
   constructor() { }

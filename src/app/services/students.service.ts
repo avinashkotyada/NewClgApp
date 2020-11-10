@@ -9,7 +9,7 @@ import { StudentModel } from '../models/student.model';
 export class StudentsService {
 
   private students = new BehaviorSubject<StudentModel[]>([])
-  
+ 
   
   constructor() { }
 
@@ -23,8 +23,8 @@ export class StudentsService {
     this.getallstudents().pipe(take(1)).subscribe(
       student => this.students.next(student.concat(new_student))
     )
-
-
+    
+    
   }
 
 
@@ -32,4 +32,5 @@ export class StudentsService {
     return this.getallstudents().pipe(map(students => { return { ...students.find(p => p.student_id === student_id) } }))
 
   }
+ 
 }

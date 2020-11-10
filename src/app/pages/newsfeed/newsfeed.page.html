@@ -3,9 +3,35 @@
   <ion-toolbar color='primary'>
     <ion-menu-button slot="start"></ion-menu-button>
     <ion-title>Newsfeed</ion-title>
+    <ion-buttons slot='end'>
+      <ion-button color="light" fill="outline" shape="round" (click)="presentModal()">
+        <ion-icon name="add-outline" color="light"   ></ion-icon>
+        <ion-label>add</ion-label>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
+  <!-- <ion-toolbar>
+    <ion-searchbar placeholder="Search" [(ngModel)]="searchTerm"
+    (ionChange)="filterNames(searchTerm)" ></ion-searchbar>
+    <ion-list >
+      <ion-item *ngFor="let name of names">
+        {{ name.student_name}}
+      </ion-item>
+    </ion-list>
+    
+  </ion-toolbar> -->
 </ion-header>
 
 <ion-content>
-
+  <div *ngFor="let postid of data">
+    <app-posted-user [post_id]="postid"></app-posted-user>
+    
+  </div>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <h2 *ngIf="text">{{text}}</h2>
 </ion-content>

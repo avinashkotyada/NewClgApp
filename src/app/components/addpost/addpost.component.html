@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      ADDING POST
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-img src="{{imgUrl}}"></ion-img>
+  <ion-item>
+    <ion-label position="floating">Description</ion-label>
+    <ion-input (ionChange)="logChange($event)"></ion-input>
+  </ion-item>
+  <ion-button expand="block" fill="outline" shape="round" (click)="addpost()">
+    ADD
+  </ion-button>
+  <ion-button expand="block" fill="outline" shape="round"   (click)="dismiss()">
+    CANCEL
+  </ion-button>
+</ion-content>

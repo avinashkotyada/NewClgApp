@@ -27,7 +27,7 @@ export class LoginPage implements OnInit {
     this.student_name = "asd"
     this.student_email = '123@gmail.com'
     this.student_id = "123"
-    this.student_profileImage  = "asddashafkjahfkjahfkj"
+    this.student_profileImage  = "https://via.placeholder.com/150"
     
   }
 
@@ -60,7 +60,7 @@ export class LoginPage implements OnInit {
       }
 
       this.presentToast()
-   
+   this.loginService.setUserId(this.student_id)
   }
 
 }
