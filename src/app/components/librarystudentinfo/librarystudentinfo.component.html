@@ -9,7 +9,9 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-label>
-    {{student_id}}
-  </ion-label>
+  <ion-list *ngFor='let history of student_history'>
+    <ion-item (click)='booksubmit(history.status,history.id)' >
+      {{history.book_name}}     {{history.takenin_date}}    {{history.status}}
+    </ion-item>
+  </ion-list>
 </ion-content>
