@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { LibrarystudentinfoComponent } from './components/librarystudentinfo/librarystudentinfo.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAMK-eYvpXNnSYgehQwyrWwaB9z1DXapSQ",
@@ -23,7 +24,7 @@ const firebaseConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,LibrarystudentinfoComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,AngularFireModule.initializeApp(firebaseConfig),AngularFirestoreModule],
   providers: [

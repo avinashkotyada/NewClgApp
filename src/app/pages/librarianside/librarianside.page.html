@@ -5,9 +5,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar></ion-searchbar>
-  <ion-list *ngFor ="let student of students">
-    <ion-item>
+  <ion-searchbar (ionChange)="filterList($event)"></ion-searchbar>
+  <ion-list *ngFor ="let student of dummyStudents">
+    <ion-item (click)="presentModal(student.student_id)" >
       <ion-label>{{student.student_name}}</ion-label>
       <ion-label>{{student.student_id}}</ion-label>
 
