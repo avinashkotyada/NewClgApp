@@ -8,11 +8,9 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./index/index.module').then( m => m.IndexPageModule)
-  },
-  {
-    path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
-  },
+  }
+  
+  
   
  
 ];

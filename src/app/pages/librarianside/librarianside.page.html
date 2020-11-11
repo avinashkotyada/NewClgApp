@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>librarianside</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar></ion-searchbar>
+  <ion-list *ngFor ="let student of students">
+    <ion-item>
+      <ion-label>{{student.student_name}}</ion-label>
+      <ion-label>{{student.student_id}}</ion-label>
+
+    </ion-item>
+
+  </ion-list>
+</ion-content>

@@ -8,7 +8,18 @@ import { StudentModel } from '../models/student.model';
 })
 export class StudentsService {
 
-  private students = new BehaviorSubject<StudentModel[]>([])
+  private students = new BehaviorSubject<StudentModel[]>([new StudentModel("avinash","123@gmail,com","122","https://img.favpng.com/5/1/21/computer-icons-user-profile-avatar-female-png-favpng-cqykKc0Hpkh65ueWt6Nh2KFvS.jpg"),
+  new StudentModel("munch","124@gmail,com","124","https://img.favpng.com/5/1/21/computer-icons-user-profile-avatar-female-png-favpng-cqykKc0Hpkh65ueWt6Nh2KFvS.jpg"),
+  new StudentModel("dheeraj","125@gmail,com","125","https://img.favpng.com/5/1/21/computer-icons-user-profile-avatar-female-png-favpng-cqykKc0Hpkh65ueWt6Nh2KFvS.jpg"),
+  new StudentModel("suraj","126@gmail,com","126","https://img.favpng.com/5/1/21/computer-icons-user-profile-avatar-female-png-favpng-cqykKc0Hpkh65ueWt6Nh2KFvS.jpg"),
+  new StudentModel("vishnu","127@gmail,com","127","https://img.favpng.com/5/1/21/computer-icons-user-profile-avatar-female-png-favpng-cqykKc0Hpkh65ueWt6Nh2KFvS.jpg"),
+  new StudentModel("pranavi","128@gmail,com","128","https://img.favpng.com/5/1/21/computer-icons-user-profile-avatar-female-png-favpng-cqykKc0Hpkh65ueWt6Nh2KFvS.jpg"),
+  new StudentModel("kishore","130@gmail,com","130","https://img.favpng.com/5/1/21/computer-icons-user-profile-avatar-female-png-favpng-cqykKc0Hpkh65ueWt6Nh2KFvS.jpg"),
+  new StudentModel("tooty","131@gmail,com","131","https://img.favpng.com/5/1/21/computer-icons-user-profile-avatar-female-png-favpng-cqykKc0Hpkh65ueWt6Nh2KFvS.jpg"),
+  new StudentModel("gopal","132@gmail,com","132","https://img.favpng.com/5/1/21/computer-icons-user-profile-avatar-female-png-favpng-cqykKc0Hpkh65ueWt6Nh2KFvS.jpg"),
+  new StudentModel("hemanth","133@gmail,com","133","https://img.favpng.com/5/1/21/computer-icons-user-profile-avatar-female-png-favpng-cqykKc0Hpkh65ueWt6Nh2KFvS.jpg"),
+  new StudentModel("akhila","134@gmail,com","134","https://img.favpng.com/5/1/21/computer-icons-user-profile-avatar-female-png-favpng-cqykKc0Hpkh65ueWt6Nh2KFvS.jpg"),
+  new StudentModel("kukka","135@gmail,com","135","https://img.favpng.com/5/1/21/computer-icons-user-profile-avatar-female-png-favpng-cqykKc0Hpkh65ueWt6Nh2KFvS.jpg")])
   
   constructor() { }
 

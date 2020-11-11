@@ -19,6 +19,7 @@ export class HomePage {
 
 
   onLogout(){
+    this.loginService.signOut();
     this.loginService.changeloginstatus()
     this.router.navigateByUrl('/login')
 

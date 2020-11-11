@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import firebase from 'firebase/app';
+import { AngularFireAuth } from "@angular/fire/auth";
+
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +29,16 @@ export class LoginService {
     this.UserisLoggedIn = !this.UserisLoggedIn
   }
 
-  constructor() { }
+  constructor(private afAuth: AngularFireAuth) { }
+  async googleSignin() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    const credential = await this.afAuth.signInWithPopup(provider);
+    console.log(credential.user.displayName,credential.user.email,credential.user.phoneNumber);
+  }
+  async signOut() {
+    await this.afAuth.signOut();
+    
+  }
+  
+  
 }

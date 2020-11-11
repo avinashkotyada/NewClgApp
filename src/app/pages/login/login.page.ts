@@ -25,8 +25,8 @@ export class LoginPage implements OnInit {
   ngOnInit() {
 
     this.student_name = "asd"
-    this.student_email = '123@gmail.com'
-    this.student_id = "123"
+    this.student_email = '1299@gmail.com'
+    this.student_id = "1299"
     this.student_profileImage  = "https://img.favpng.com/5/1/21/computer-icons-user-profile-avatar-female-png-favpng-cqykKc0Hpkh65ueWt6Nh2KFvS.jpg"
     
   }
@@ -41,9 +41,11 @@ export class LoginPage implements OnInit {
 
 
   clickongooglesignin() {
+    this.loginService.googleSignin();
     this.studentsService.getstudentbyid(this.student_id).subscribe(
        student =>    this.student = student
     )
+    
 
     if(this.student.student_id){
       this.loginService.changeloginstatus()

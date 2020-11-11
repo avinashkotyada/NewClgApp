@@ -1,7 +1,7 @@
 <ion-menu contentId='home'>
   <ion-list id="inbox-list">
     <ion-menu-toggle>
-      <ion-item lines="none" routerLink="/home/profile" detail class="userInfo" button>
+      <ion-item lines="none" [routerLink]="['/','home','profile']" detail class="userInfo" button>
         
         <ion-avatar><ion-img [src]="profile1.student_profileImage"></ion-img></ion-avatar>
         <div class="profile_info">
@@ -9,6 +9,11 @@
           <ion-note>{{profile1.student_id}}</ion-note>
         </div>
         
+      </ion-item>
+    </ion-menu-toggle>
+    <ion-menu-toggle>
+      <ion-item [routerLink]="['/','home','librarianside']">
+        Librarian Side
       </ion-item>
     </ion-menu-toggle>
     <ion-menu-toggle>
