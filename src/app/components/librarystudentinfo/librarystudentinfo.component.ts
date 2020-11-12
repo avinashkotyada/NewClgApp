@@ -55,71 +55,7 @@ export class LibrarystudentinfoComponent implements OnInit {
 
     });
   }
-  async presentAlertPrompt() {
-    const alert = await this.alertController.create({
-      header: 'Add Book',
-      inputs: [
-        {
-          type: 'text',
-          value: this.currentStudent.student_name
-        },
-        {
-          name: 'student_id',
-          type: 'text',
-          value: this.currentStudent.student_id
-
-
-        },
-
-        {
-          name: 'bookname',
-          type: 'text',
-          placeholder: 'Book Name'
-        },
-
-
-        {
-          name: 'takein',
-          type: 'date'
-        },
-        {
-          name: 'days',
-          type: 'number',
-          min: 1,
-          max: 7,
-        },
-
-
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
-          text: 'Ok',
-          handler: (data) => {
-
-            this.db.collection('bookhistory').doc(data.student_id).collection('link').add({
-              book_name: data.bookname
-              , takenin_date: data.takein, submit_date: data.days, status: 'pending'
-
-
-            }
-
-            )
-
-
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
+ 
 
   async booksubmit(status: string, id: string) {
     if (status === 'submitted') {

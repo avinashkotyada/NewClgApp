@@ -18,6 +18,5 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
     LibrariansidePageRoutingModule
   ],
   declarations: [LibrariansidePage],
-  providers :[ ]
 })
 export class LibrariansidePageModule {}

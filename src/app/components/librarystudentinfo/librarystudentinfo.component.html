@@ -5,14 +5,11 @@
         ><ion-icon slot="icon-only" name="close"></ion-icon
       ></ion-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button (click)="presentAlertPrompt()"
-        ><ion-icon slot="icon-only" name="add"></ion-icon
-      ></ion-button>
-    </ion-buttons>
+    
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  
   <ion-card *ngFor="let history of student_history">
     <ion-item-sliding>
     

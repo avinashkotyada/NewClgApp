@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
-import { IonSegment, IonSlides, ModalController } from '@ionic/angular';
+import { IonSegment, IonSlides, ModalController, ToastController } from '@ionic/angular';
 import { LibrarystudentinfoComponent } from 'src/app/components/librarystudentinfo/librarystudentinfo.component';
 import { StudentModel } from 'src/app/models/student.model';
 import { StudentsService } from 'src/app/services/students.service';
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx'
+import { IssuingbookComponent } from 'src/app/components/issuingbook/issuingbook.component';
 
 @Component({
   selector: 'app-librarianside',
@@ -13,11 +14,12 @@ import { StudentsService } from 'src/app/services/students.service';
 })
 export class LibrariansidePage implements OnInit {
   students: StudentModel[];
+  ScannedData: string;
   dummyStudents: StudentModel[]
   @ViewChild('slides') Slides: IonSlides
   Segment = 0
 
-  constructor(private db: AngularFirestore, private modalController: ModalController) { }
+  constructor(private toastController : ToastController, private db: AngularFirestore, private modalController: ModalController, private barcodescanner: BarcodeScanner) { }
   slideOpts = {
 
     initialSlide: 0,
@@ -25,7 +27,7 @@ export class LibrariansidePage implements OnInit {
 
   };
   ngOnInit() {
-    
+
     this.db.collection<StudentModel>('students').snapshotChanges().subscribe(students => {
       this.students = []
       students.forEach(a => {
@@ -36,14 +38,14 @@ export class LibrariansidePage implements OnInit {
 
 
     })
-  
-    
 
 
 
-  
-  
-  
+
+
+
+
+
   }
   async filterList(evt) {
     const searchTerm = evt.srcElement.value;
@@ -86,26 +88,61 @@ export class LibrariansidePage implements OnInit {
 
     this.Slides.slideTo(event.detail.value)
   }
-  // scanBarcode() {
-  //   const options: BarcodeScannerOptions = {
-  //     preferFrontCamera: false,
-  //     showFlipCameraButton: true,
-  //     showTorchButton: true,
-  //     torchOn: false,
-  //     prompt: 'Place a barcode inside the scan area',
-  //     resultDisplayDuration: 500,
-  //     formats: 'EAN_13,EAN_8,QR_CODE,PDF_417',
-  //     orientation: 'portrait',
-  //   };
+  scanBarcode() {
 
-  //   this.barcodeScanner.scan(options).then(barcodeData => {
-  //     console.log('Barcode data', barcodeData);
-  //     this.scannedData = barcodeData.text;
+    const options: BarcodeScannerOptions = {
+      preferFrontCamera: false,
+      showFlipCameraButton: true,
+      showTorchButton: true,
+      torchOn: false,
+      prompt: 'Place a barcode inside the scan area',
+      resultDisplayDuration: 500,
+      formats: 'EAN_13,EAN_8,QR_CODE,PDF_417',
+      orientation: 'portrait',
+    };
 
-  //   }).catch(err => {
-  //     console.log('Error', err);
-  //   });
-  // } 
+    this.barcodescanner.scan(options).then(barcodeData => {
+
+
+      this.ScannedData = barcodeData.text;
+      const student_id = this.ScannedData.split('/')[0]
+
+      this.db.collection('students').doc(student_id).snapshotChanges().subscribe(
+        student => {
+          if (student.payload.exists) {
+
+            const modal = this.modalController.create({
+              component: IssuingbookComponent,
+
+              componentProps: {
+                'student_id': student_id
+              }
+
+            }).then(p => p.present())
+
+
+
+
+          } else {
+
+            const toast = this.toastController.create({
+              message: "Student doesn't exists",
+              duration: 1200
+            }).then(
+              p=> p.present()
+            )
+           
+          }
+        }
+        
+
+    )
+
+
+  }).catch(err => {
+    console.log('Error', err);
+    });
+  } 
 
 
   

@@ -1,8 +1,11 @@
 <ion-header>
   <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="['/','home']"></ion-back-button>
+    </ion-buttons> -->
     <ion-title>librarianside</ion-title>
     <ion-buttons slot="end">
-      <ion-button><ion-icon slot="icon-only" name="qr-code"></ion-icon></ion-button>
+      <ion-button (click)='scanBarcode()'><ion-icon slot="icon-only" name="qr-code"></ion-icon></ion-button>
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar>
@@ -22,6 +25,7 @@
   <ion-slides (ionSlideDidChange)='slidechange()' (ionSlidesDidLoad)='slidechange()'  [options]="slideOpts" #slides>
     <ion-slide >
       <div class="div">
+      
         <ion-searchbar (ionChange)="filterList($event)"></ion-searchbar>
         <ion-list *ngFor="let student of dummyStudents">
           <ion-item (click)="presentModal(student.student_id)">
