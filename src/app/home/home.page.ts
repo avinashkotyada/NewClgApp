@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { StudentModel } from '../models/student.model';
 import { LoginService } from '../services/login.service';
@@ -15,13 +16,38 @@ export class HomePage {
   profile1 : StudentModel;
   sub :Subscription;
   current_student_id : string;
-  constructor(private loginService : LoginService, private router : Router,private studentService :StudentsService) {}
+  constructor(private alertController : AlertController, private loginService : LoginService, private router : Router,private studentService :StudentsService) {}
 
 
-  onLogout(){
-    this.loginService.signOut();
-    this.loginService.changeloginstatus()
-    this.router.navigateByUrl('/login')
+ async onLogout(){
+
+  const alert = await this.alertController.create({
+
+    header: 'Confirm Logout',
+    message: 'Are you sure, do you want logout?',
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        handler: (blah) => {
+          console.log('Confirm Cancel: blah');
+        }
+      }, {
+        text: 'Logout',
+        handler: () => {
+          this.loginService.signOut();
+          this.loginService.changeloginstatus()
+          this.router.navigateByUrl('/login')
+         
+
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+
+
 
   }
   ngOnInit(){

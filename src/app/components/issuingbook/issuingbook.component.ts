@@ -29,17 +29,17 @@ export class IssuingbookComponent implements OnInit {
 
   addbook() {
 
-   const bookname= document.getElementById('bookname').nodeValue
-   const takendate= document.getElementById('takendate').nodeValue
-   const noofdays= document.getElementById('noofdays').nodeValue
-    this.db.collection('bookhistory').doc(this.student_id).collection('link').add({
-      book_name: bookname
-      , takenin_date: takendate, submit_date: noofdays, status: 'pending'
+  //  const bookname= document.getElementById('bookname').nodeValue
+  //  const takendate= document.getElementById('takendate').nodeValue
+  //  const noofdays= document.getElementById('noofdays').nodeValue
+  //   this.db.collection('bookhistory').doc(this.student_id).collection('link').add({
+  //     book_name: bookname
+  //     , takenin_date: takendate, submit_date: noofdays, status: 'pending'
 
 
-    }
+  //   }
 
-    )
+  //   )
 
   }
 

@@ -1,5 +1,5 @@
 <ion-content>
-  <ion-slides (ionSlideDidChange)="slideChanged(slides)" pager="true" [options]="slideOpts" #slides>
+  <ion-slides  pager="true" [options]="slideOpts" #slides>
     <ion-slide>
       <h2>Welcome to STUD</h2>
       <ion-text
@@ -12,14 +12,15 @@
     </ion-slide>
     <ion-slide>
       <h2>We organize your works</h2>
+      
+  
+  <div class="ion-text-center button">
+    <ion-button color='dark'  [routerLink]="['/','login']">Get Started</ion-button>
+  </div>
 
     </ion-slide>
   </ion-slides>
 
-  
-  <div class="ion-text-center ion-margin-vertical">
-    <ion-button *ngIf='buttonvisible' [routerLink]="['/','login']">Get Started</ion-button>
-  </div>
 
   
 </ion-content>
