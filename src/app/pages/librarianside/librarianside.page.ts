@@ -11,77 +11,89 @@ import { StudentsService } from 'src/app/services/students.service';
   styleUrls: ['./librarianside.page.scss'],
 })
 export class LibrariansidePage implements OnInit {
-  students : StudentModel[];
-  dummyStudents : StudentModel[]
-  @ViewChild('slides') Slides : IonSlides
+  students: StudentModel[];
+  dummyStudents: StudentModel[]
+  @ViewChild('slides') Slides: IonSlides
   Segment = 0
 
-  constructor(private db:AngularFirestore, private modalController : ModalController) { }
+  constructor(private db: AngularFirestore, private modalController: ModalController) { }
   slideOpts = {
-    
+
     initialSlide: 0,
     speed: 400,
-    
+
   };
-  ngOnInit(){
-    this.db.collection<StudentModel>('students').snapshotChanges().subscribe(students=>{
+  ngOnInit() {
+    
+    this.db.collection<StudentModel>('students').snapshotChanges().subscribe(students => {
       this.students = []
-      students.forEach(a=>{
+      students.forEach(a => {
         this.students.push(a.payload.doc.data())
- 
+
       })
       this.dummyStudents = this.students
 
-      
+
     })
+  
+    
+
+
+
+  
+  
+  
   }
   async filterList(evt) {
     const searchTerm = evt.srcElement.value;
     this.dummyStudents = this.students
-  
+
     if (!searchTerm) {
       return;
     }
-  
+
     this.dummyStudents = this.dummyStudents.filter(currentStudent => {
       if (currentStudent.student_name && searchTerm) {
         return (currentStudent.student_name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 || currentStudent.student_id.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
       }
     });
   }
-  async presentModal(student_id : string) {
+  async presentModal(student_id: string) {
     const modal = await this.modalController.create({
       component: LibrarystudentinfoComponent,
-      
-      componentProps : {
-        'student_id' : student_id
+
+      componentProps: {
+        'student_id': student_id
       }
-      
+
     });
     return await modal.present();
   }
 
 
-  slidechange(){
-    this.Slides.getActiveIndex().then((index : number)=>{
-      this.Segment=index
+  slidechange() {
+    this.Slides.getActiveIndex().then((index: number) => {
+      this.Segment = index
 
     }
-      )
+    )
 
 
   }
 
-  segmentchange(event :any){
+  segmentchange(event: any) {
 
     this.Slides.slideTo(event.detail.value)
   }
 
 
-      
-
-    
   
+
+
+
+
+
+
 
 
 }

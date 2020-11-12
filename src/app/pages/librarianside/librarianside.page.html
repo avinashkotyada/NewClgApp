@@ -21,16 +21,20 @@
         <ion-list *ngFor="let student of dummyStudents">
           <ion-item (click)="presentModal(student.student_id)">
             <ion-label>{{student.student_name}}</ion-label>
-            <ion-label>{{student.student_id}}</ion-label>
+            <ion-note>{{student.student_id}}</ion-note>
           </ion-item>
         </ion-list>
       </div>
     </ion-slide>
     <ion-slide>
-      <h1>Slide 2</h1>
+    <div class=div>
+     
+    </div>
     </ion-slide>
     <ion-slide>
-      <h1>Slide 3</h1>
+      <div class="div">
+        <ion-searchbar (ionChange)="filterList($event)"></ion-searchbar>
+      </div>
     </ion-slide>
   </ion-slides>
 </ion-content>

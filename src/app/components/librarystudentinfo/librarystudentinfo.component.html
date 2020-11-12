@@ -1,17 +1,35 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="dismiss()"><ion-icon slot="icon-only" name="close" ></ion-icon></ion-button>
+      <ion-button (click)="dismiss()"
+        ><ion-icon slot="icon-only" name="close"></ion-icon
+      ></ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button (click)="presentAlertPrompt()" ><ion-icon slot="icon-only" name="add" ></ion-icon></ion-button>
+      <ion-button (click)="presentAlertPrompt()"
+        ><ion-icon slot="icon-only" name="add"></ion-icon
+      ></ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-list *ngFor='let history of student_history'>
-    <ion-item (click)='booksubmit(history.status,history.id)' >
-      {{history.book_name}}     {{history.takenin_date}}    {{history.status}}
-    </ion-item>
-  </ion-list>
+  <ion-card *ngFor="let history of student_history">
+    <ion-item-sliding>
+    
+      <ion-item (click)="booksubmit(history.status, history.id)" >
+        <div>
+          <h4>Book Name : {{ history.book_name }}</h4>
+          <h4>Taken at : {{ history.takenin_date | date  }}</h4>
+          <h4>Status : {{ history.status }} </h4>
+      </div>
+      </ion-item>
+     
+
+      <ion-item-options side="end">
+        <ion-item-option (click)="ondelete(history.id)" color="danger">
+          <ion-icon slot="icon-only" name="trash"> </ion-icon
+        ></ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-card>
 </ion-content>
