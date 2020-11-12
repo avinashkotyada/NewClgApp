@@ -2,7 +2,7 @@
 
 
 
-npm install
-ionic serve
-ionic cordova build
-cordova run android
+#npm install
+#ionic serve
+#ionic cordova build
+#cordova run android
