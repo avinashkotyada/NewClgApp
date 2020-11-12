@@ -23,9 +23,15 @@
           <h4>Status : {{ history.status }} </h4>
       </div>
       </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option *ngIf="history.status !=='submitted'" (click)="booksubmit(history.status, history.id)" color="success">
+          <ion-icon slot="icon-only" name="checkmark"> </ion-icon
+        ></ion-item-option>
+      </ion-item-options>
+      
      
 
-      <ion-item-options side="end">
+      <ion-item-options side="start">
         <ion-item-option (click)="ondelete(history.id)" color="danger">
           <ion-icon slot="icon-only" name="trash"> </ion-icon
         ></ion-item-option>

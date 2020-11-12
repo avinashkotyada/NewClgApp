@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { LibrariansidePageRoutingModule } from './librarianside-routing.module';
 
 import { LibrariansidePage } from './librarianside.page';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+
 
 @NgModule({
   imports: [
@@ -15,6 +17,7 @@ import { LibrariansidePage } from './librarianside.page';
     IonicModule,
     LibrariansidePageRoutingModule
   ],
-  declarations: [LibrariansidePage]
+  declarations: [LibrariansidePage],
+  providers :[ ]
 })
 export class LibrariansidePageModule {}

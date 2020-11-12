@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
-import { Camera } from '@ionic-native/camera/ngx';
 
 
 @NgModule({
@@ -18,6 +17,6 @@ import { Camera } from '@ionic-native/camera/ngx';
     ProfilePageRoutingModule
   ],
   declarations: [ProfilePage],
-  providers : [Camera]
+  
 })
 export class ProfilePageModule {}
