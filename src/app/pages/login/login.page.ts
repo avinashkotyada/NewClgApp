@@ -41,7 +41,7 @@ export class LoginPage implements OnInit {
 
 
   clickongooglesignin() {
-    this.loginService.googleSignin();
+    // this.loginService.googleSignin();
     this.studentsService.getstudentbyid(this.student_id).subscribe(
        student =>    this.student = student
     )
