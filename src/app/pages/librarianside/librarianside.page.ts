@@ -27,6 +27,7 @@ export class LibrariansidePage implements OnInit {
 
   };
   ngOnInit() {
+    console.log(new Date().getTime())
 
     this.db.collection<StudentModel>('students').snapshotChanges().subscribe(students => {
       this.students = []
@@ -89,6 +90,7 @@ export class LibrariansidePage implements OnInit {
     this.Slides.slideTo(event.detail.value)
   }
   scanBarcode() {
+    const time = new Date().getTime()
 
     const options: BarcodeScannerOptions = {
       preferFrontCamera: false,
@@ -105,10 +107,27 @@ export class LibrariansidePage implements OnInit {
 
 
       this.ScannedData = barcodeData.text;
+
+      
       const student_id = this.ScannedData.split('/')[0]
+      const a= time-parseInt( this.ScannedData.split('/')[1])
+      if(a>30000){
+        
+      const toast = this.toastController.create({
+        message: "QrCode Expired it only lasts for 30secs" ,
+        duration: 1200
+        }).then(
+          p=> p.present()
+        )
+
+
+        return
+
+      }
 
       this.db.collection('students').doc(student_id).snapshotChanges().subscribe(
         student => {
+      
           if (student.payload.exists) {
 
             const modal = this.modalController.create({

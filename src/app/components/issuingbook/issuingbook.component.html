@@ -13,28 +13,29 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
-  <form>
+
     <h3>{{ student_id }}</h3>
     <h3>{{ Student.student_name}}</h3>
     <ion-item>
       <ion-label position="floating">Book Name</ion-label>
-      <ion-input id='bookname'></ion-input>
+      <ion-input #bookname ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>DD/MM/YYYY</ion-label>
-      <ion-datetime id='takendate'
+      <ion-label position='floating'>Current Timestamp</ion-label>
+      <ion-textarea disabled value='{{time}}'></ion-textarea>
+      <!-- <ion-label>DD/MM/YYYY</ion-label>
+      <ion-datetime #takendate
         displayFormat="DD/MM/YYYY"
         placeholder="Select Date"
-      ></ion-datetime>
+      ></ion-datetime> -->
     </ion-item>
     <ion-item>
       <ion-label position='floating'>Select No of Days</ion-label>
-      <ion-select id='noofdays'>
+      <ion-select #noofdays>
         <ion-select-option *ngFor="let number of numbers">{{
           number
         }}</ion-select-option>
       </ion-select>
     </ion-item>
-  
-  </form>
+
 </ion-content>

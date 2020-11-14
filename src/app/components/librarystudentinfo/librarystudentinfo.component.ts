@@ -21,6 +21,7 @@ export class LibrarystudentinfoComponent implements OnInit {
 
     this.db.collection('students').doc<StudentModel>(this.student_id).valueChanges().subscribe(student => {
       this.currentStudent = student;
+      console.log(new Date().getTime())
 
     })
 

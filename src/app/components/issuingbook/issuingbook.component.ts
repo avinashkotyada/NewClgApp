@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ModalController } from '@ionic/angular';
+import { IonDatetime, IonInput, IonSelect, ModalController } from '@ionic/angular';
 import { StudentModel } from 'src/app/models/student.model';
-import { FormsModule} from '@angular/forms'
+import { FormControl, FormGroup, FormsModule, Validators} from '@angular/forms'
 
 @Component({
   selector: 'app-issuingbook',
@@ -14,32 +14,41 @@ export class IssuingbookComponent implements OnInit {
   @Input() student_id: string
   Student: StudentModel
   numbers: number[] = [1, 2, 3, 4, 5, 6]
-  bookname : string
-  takendate : string
-  noofdays : string
+  time : Date
+  @ViewChild('bookname') Bookname : IonInput
+  // @ViewChild('takendate') Takendate : IonDatetime
+  @ViewChild('noofdays') NoofDays : IonSelect
 
   constructor(private db: AngularFirestore, private modalCtrl: ModalController) { }
 
   ngOnInit() {
-    this.db.collection('students').doc<StudentModel>(this.student_id).valueChanges().subscribe(
+    this.db.collection('students').doc<StudentModel>(this.student_id).snapshotChanges().subscribe(
       student => {
-        this.Student = student
+        this.Student= student.payload.data()
       })
+
+
+      this.time = new Date()
+ 
   }
 
+
+
   addbook() {
+    
+    console.log(this.time.getTime())
 
-  //  const bookname= document.getElementById('bookname').nodeValue
-  //  const takendate= document.getElementById('takendate').nodeValue
-  //  const noofdays= document.getElementById('noofdays').nodeValue
-  //   this.db.collection('bookhistory').doc(this.student_id).collection('link').add({
-  //     book_name: bookname
-  //     , takenin_date: takendate, submit_date: noofdays, status: 'pending'
+    this.db.collection('bookhistory').doc(this.student_id).collection('link').add({
+      book_name: this.Bookname.value
+      , takenin_date: this.time.getTime() , submit_date: this.NoofDays.value, status: 'pending'
 
 
-  //   }
+    }
 
-  //   )
+    ).then( p=>  
+      this.dismiss()
+    ).catch( err=> 
+      console.log(err))
 
   }
 
