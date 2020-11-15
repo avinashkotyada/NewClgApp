@@ -26,7 +26,7 @@ export class LibrariansidePage implements OnInit {
 
   };
   ngOnInit() {
-    // console.log(new Date().getTime())
+    console.log(new Date().getTime())
 
     const loading = this.loadingController.create({
       message: 'Please wait...',

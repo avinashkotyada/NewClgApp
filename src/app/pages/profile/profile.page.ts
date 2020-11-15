@@ -51,7 +51,7 @@ export class ProfilePage implements OnInit,OnDestroy {
           updateOn : 'change',
           validators : [Validators.required]
         }),
-        photo : new FormControl(this.profile1.student_profileImage,{
+        photo : new FormControl(this.profile1.student_photo,{
           updateOn : 'change',
           validators  : [Validators.required]
   

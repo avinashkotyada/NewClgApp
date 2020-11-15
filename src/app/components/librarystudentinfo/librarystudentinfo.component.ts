@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AlertController, LoadingController, ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { BookHistory, BookHistorywithid } from 'src/app/models/bookhistory.model';
 import { StudentModel } from 'src/app/models/student.model';
+
 
 
 @Component({
@@ -17,7 +18,7 @@ export class LibrarystudentinfoComponent implements OnInit {
   currentStudent_photo: string
 
   student_history: BookHistorywithid[]
-  constructor(private loadingController: LoadingController, private modalCtrl: ModalController, private alertController: AlertController, private db: AngularFirestore) { }
+  constructor(private toastctrl : ToastController, private loadingController: LoadingController, private modalCtrl: ModalController, private alertController: AlertController, private db: AngularFirestore) { }
 
   ngOnInit() {
 
@@ -27,8 +28,8 @@ export class LibrarystudentinfoComponent implements OnInit {
     }).then(p => {
       p.present()
 
-      this.db.collection('students').doc<StudentModel>(this.student_id).snapshotChanges().subscribe(student => {
-        this.currentStudent = student.payload.data();
+      this.db.collection('students').doc<StudentModel>(this.student_id).valueChanges().subscribe(student => {
+        this.currentStudent = student
         this.currentStudent_name = this.currentStudent.student_name
         this.currentStudent_photo = this.currentStudent.student_photo
       })
@@ -57,13 +58,10 @@ export class LibrarystudentinfoComponent implements OnInit {
     });
   }
 
+  
 
   async booksubmit(status: string, id: string) {
-    if (status === 'submitted') {
-      return
-    }
-
-    const alert = await this.alertController.create({
+   const alert = await this.alertController.create({
 
       header: 'Confirm Submit',
       message: 'is he going to submit this book',
@@ -78,8 +76,17 @@ export class LibrarystudentinfoComponent implements OnInit {
           text: 'Submit',
           handler: () => {
             this.db.collection('bookhistory').doc(this.student_id).collection('link').doc(id).update({
+              submit_date : new Date().getTime(),
               status: 'submitted'
-            })
+            }).then(p=> {
+
+            console.log("book submitted")
+
+
+              
+            }
+             
+            )
 
           }
         }
