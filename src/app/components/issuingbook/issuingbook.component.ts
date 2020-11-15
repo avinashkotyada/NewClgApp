@@ -40,7 +40,7 @@ export class IssuingbookComponent implements OnInit {
 
     this.db.collection('bookhistory').doc(this.student_id).collection('link').add({
       book_name: this.Bookname.value
-      , takenin_date: this.time.getTime() , submit_date: this.NoofDays.value, status: 'pending'
+      , takenin_date: this.time.getTime() , submit_date: parseInt(this.NoofDays.value), status: 'pending'
 
 
     }

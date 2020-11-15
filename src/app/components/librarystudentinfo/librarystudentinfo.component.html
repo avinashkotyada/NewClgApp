@@ -1,38 +1,57 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="dismiss()"
-        ><ion-icon slot="icon-only" name="close"></ion-icon
+      <ion-button (click)="dismissModal()"
+        ><ion-icon slot="icon-only" name="arrow-back"></ion-icon
       ></ion-button>
     </ion-buttons>
-    
+    <ion-item>
+      <ion-avatar slot="start">
+        <ion-img [src]="currentStudent_photo"></ion-img>
+      </ion-avatar>
+      <ion-label>{{ currentStudent_name }}</ion-label>
+      <ion-chip color="primary">
+        <ion-label color="primary">{{ student_id }}</ion-label>
+      </ion-chip>
+    </ion-item>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  
-  <ion-card *ngFor="let history of student_history">
+  <ion-card *ngFor="let history of student_history; ">
     <ion-item-sliding>
-    
-      <ion-item (click)="booksubmit(history.status, history.id)" >
+      <ion-item (click)="booksubmit(history.status, history.id)">
         <div>
-          <h4>Book Name : {{ history.book_name }}</h4>
-          <h4>Taken at : {{ history.takenin_date |date }}</h4>
-          <h4>Status : {{ history.status }} </h4>
-      </div>
+        <ion-label class='ion-margin-top'><strong>{{ history.book_name }}</strong></ion-label>
+        <ion-label class="ion-margin-vertical" color="primary"> Taken Date : {{ history.takenin_date | date }}</ion-label>
+    
+        </div>
+        <!-- <ion-note>{{history.takenin_date + history.submit_date*86400000 |date}}</ion-note> -->
+      
+        <ion-chip  *ngIf="history.status==='submitted'"  slot="end" color="success">
+          <ion-label color="success">{{ history.status }}</ion-label>
+        </ion-chip>
+        <ion-chip *ngIf="history.status==='pending'"  slot="end" color="warning">
+          <ion-label color="warning">{{ history.status }}</ion-label>
+        </ion-chip>
+        <ion-chip *ngIf="history.status==='over due'"  slot="end" color="danger">
+          <ion-label color="danger">{{ history.status }}</ion-label>
+        </ion-chip>
       </ion-item>
-      <ion-item-options side="end">
-        <ion-item-option *ngIf="history.status !=='submitted'" (click)="booksubmit(history.status, history.id)" color="success">
+      <!-- <ion-item-options side="end">
+        <ion-item-option
+          *ngIf="history.status !== 'submitted'"
+          (click)="booksubmit(history.status, history.id)"
+          color="success"
+        >
           <ion-icon slot="icon-only" name="checkmark"> </ion-icon
         ></ion-item-option>
       </ion-item-options>
-      
-     
 
       <ion-item-options side="start">
         <ion-item-option (click)="ondelete(history.id)" color="danger">
           <ion-icon slot="icon-only" name="trash"> </ion-icon
         ></ion-item-option>
-      </ion-item-options>
+      </ion-item-options> -->
     </ion-item-sliding>
   </ion-card>
 </ion-content>

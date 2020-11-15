@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { IonSegment, IonSlides, ModalController, ToastController } from '@ionic/angular';
+import { IonSlides, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { LibrarystudentinfoComponent } from 'src/app/components/librarystudentinfo/librarystudentinfo.component';
 import { StudentModel } from 'src/app/models/student.model';
-import { StudentsService } from 'src/app/services/students.service';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx'
 import { IssuingbookComponent } from 'src/app/components/issuingbook/issuingbook.component';
 
@@ -19,7 +18,7 @@ export class LibrariansidePage implements OnInit {
   @ViewChild('slides') Slides: IonSlides
   Segment = 0
 
-  constructor(private toastController : ToastController, private db: AngularFirestore, private modalController: ModalController, private barcodescanner: BarcodeScanner) { }
+  constructor(private loadingController: LoadingController, private toastController: ToastController, private db: AngularFirestore, private modalController: ModalController, private barcodescanner: BarcodeScanner) { }
   slideOpts = {
 
     initialSlide: 0,
@@ -27,29 +26,29 @@ export class LibrariansidePage implements OnInit {
 
   };
   ngOnInit() {
-    console.log(new Date().getTime())
+    // console.log(new Date().getTime())
 
-    this.db.collection<StudentModel>('students').snapshotChanges().subscribe(students => {
-      this.students = []
-      students.forEach(a => {
-        this.students.push(a.payload.doc.data())
+    const loading = this.loadingController.create({
+      message: 'Please wait...',
 
+    }).then(p => {
+
+
+      p.present()
+      this.db.collection<StudentModel>('students').snapshotChanges().subscribe(students => {
+        this.students = []
+        students.forEach(student => {
+          this.students.push(student.payload.doc.data())
+        })
+        this.dummyStudents = this.students
+        p.dismiss()
       })
-      this.dummyStudents = this.students
-
-
     })
-
-
-
-
-
-
-
-
   }
-  async filterList(evt) {
-    const searchTerm = evt.srcElement.value;
+
+
+  filterStudents(evt: any) {
+    const searchTerm = evt.detail.value;
     this.dummyStudents = this.students
 
     if (!searchTerm) {
@@ -61,15 +60,21 @@ export class LibrariansidePage implements OnInit {
         return (currentStudent.student_name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 || currentStudent.student_id.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
       }
     });
+
+
+
+
   }
-  async presentModal(student_id: string) {
+
+
+
+
+  async  LibraryStudentInfoModal(student_id: string) {
     const modal = await this.modalController.create({
       component: LibrarystudentinfoComponent,
-
       componentProps: {
-        'student_id': student_id
+        student_id: student_id
       }
-
     });
     return await modal.present();
   }
@@ -108,16 +113,16 @@ export class LibrariansidePage implements OnInit {
 
       this.ScannedData = barcodeData.text;
 
-      
+
       const student_id = this.ScannedData.split('/')[0]
-      const a= time-parseInt( this.ScannedData.split('/')[1])
-      if(a>30000){
-        
-      const toast = this.toastController.create({
-        message: "QrCode Expired it only lasts for 30secs" ,
-        duration: 1200
+      const a = time - parseInt(this.ScannedData.split('/')[1])
+      if (a > 30000) {
+
+        const toast = this.toastController.create({
+          message: "QrCode Expired it only lasts for 30secs",
+          duration: 1200
         }).then(
-          p=> p.present()
+          p => p.present()
         )
 
 
@@ -127,7 +132,7 @@ export class LibrariansidePage implements OnInit {
 
       this.db.collection('students').doc(student_id).snapshotChanges().subscribe(
         student => {
-      
+
           if (student.payload.exists) {
 
             const modal = this.modalController.create({
@@ -148,18 +153,18 @@ export class LibrariansidePage implements OnInit {
               message: "Student doesn't exists",
               duration: 1200
             }).then(
-              p=> p.present()
+              p => p.present()
             )
-           
+
           }
         }
-        
-
-    )
 
 
-  }).catch(err => {
-    console.log('Error', err);
+      )
+
+
+    }).catch(err => {
+      console.log('Error', err);
     });
   } 
 

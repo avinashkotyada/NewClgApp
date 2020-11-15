@@ -1,48 +1,56 @@
 <ion-header>
   <ion-toolbar>
-    <!-- <ion-buttons slot="start">
-      <ion-back-button [defaultHref]="['/','home']"></ion-back-button>
-    </ion-buttons> -->
-    <ion-title>librarianside</ion-title>
+    <ion-title>Librarian Side</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)='scanBarcode()'><ion-icon slot="icon-only" name="qr-code"></ion-icon></ion-button>
+      <ion-button (click)="scanBarcode()"
+        ><ion-icon slot="icon-only" name="qr-code"></ion-icon
+      ></ion-button>
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-segment  [(ngModel)]='Segment'  #segment (ionChange)='segmentchange($event)'>
+    <ion-segment
+      [(ngModel)]="Segment"
+      #segment
+      (ionChange)="segmentchange($event)"
+    >
       <ion-segment-button value="0"> Students </ion-segment-button>
       <ion-segment-button value="1"> Pendings </ion-segment-button>
       <ion-segment-button value="2"> Books </ion-segment-button>
     </ion-segment>
-
   </ion-toolbar>
-
 </ion-header>
 
-
-
 <ion-content>
-  <ion-slides (ionSlideDidChange)='slidechange()' (ionSlidesDidLoad)='slidechange()'  [options]="slideOpts" #slides>
-    <ion-slide >
+  <ion-slides
+    (ionSlideDidChange)="slidechange()"
+    (ionSlidesDidLoad)="slidechange()"
+    [options]="slideOpts"
+    #slides
+  >
+    <ion-slide>
       <div class="div">
-      
-        <ion-searchbar (ionChange)="filterList($event)"></ion-searchbar>
-        <ion-list *ngFor="let student of dummyStudents">
-          <ion-item (click)="presentModal(student.student_id)">
+        <ion-searchbar (ionChange)="filterStudents($event)"></ion-searchbar>
+        <ion-list>
+          <ion-item  *ngFor="let student of dummyStudents" (click)=" LibraryStudentInfoModal(student.student_id)">
+            <ion-avatar slot="start">
+             <ion-img [src]='student.student_photo'></ion-img>
+            </ion-avatar>
+            
+             
             <ion-label>{{student.student_name}}</ion-label>
-            <ion-note>{{student.student_id}}</ion-note>
+            <ion-chip color='primary' >
+              <ion-label color="primary">{{student.student_id}}</ion-label>
+            </ion-chip>
           </ion-item>
         </ion-list>
       </div>
     </ion-slide>
     <ion-slide>
-    <div class=div>
-     
-    </div>
+      <div class="div"></div>
     </ion-slide>
     <ion-slide>
       <div class="div">
-        <ion-searchbar (ionChange)="filterList($event)"></ion-searchbar>
+        <ion-searchbar></ion-searchbar>
       </div>
     </ion-slide>
   </ion-slides>

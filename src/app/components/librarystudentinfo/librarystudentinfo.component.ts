@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { BookHistory, BookHistorywithid } from 'src/app/models/bookhistory.model';
 import { StudentModel } from 'src/app/models/student.model';
 
@@ -13,50 +13,50 @@ import { StudentModel } from 'src/app/models/student.model';
 export class LibrarystudentinfoComponent implements OnInit {
   @Input() student_id: string;
   currentStudent: StudentModel
+  currentStudent_name: string
+  currentStudent_photo: string
+
   student_history: BookHistorywithid[]
-  pendings : any
-  constructor(private modalCtrl: ModalController, private alertController: AlertController, private db: AngularFirestore) { }
+  constructor(private loadingController: LoadingController, private modalCtrl: ModalController, private alertController: AlertController, private db: AngularFirestore) { }
 
   ngOnInit() {
 
-    this.db.collection('students').doc<StudentModel>(this.student_id).valueChanges().subscribe(student => {
-      this.currentStudent = student;
-      console.log(new Date().getTime())
 
-    })
+    const loading = this.loadingController.create({
 
-    this.db.collection('bookhistory').doc(this.student_id).collection<BookHistory>('link').snapshotChanges().subscribe(
-      history => {
-        this.student_history = []
-        history.forEach(a => {
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          this.student_history.push({ ...data, id: id })
+    }).then(p => {
+      p.present()
 
+      this.db.collection('students').doc<StudentModel>(this.student_id).snapshotChanges().subscribe(student => {
+        this.currentStudent = student.payload.data();
+        this.currentStudent_name = this.currentStudent.student_name
+        this.currentStudent_photo = this.currentStudent.student_photo
+      })
 
+      this.db.collection('bookhistory').doc(this.student_id).collection<BookHistory>('link', q=> q.orderBy('takenin_date', )).snapshotChanges().subscribe(
+        total_history => {
+          this.student_history = []
+          total_history.forEach(single_history => {
+            const data = single_history.payload.doc.data();
+            const id = single_history.payload.doc.id;
+            this.student_history.push({ ...data, id: id })
+          }
+          )
         }
+      )
 
-
-        )
-
-
-
-      }
-    )
-    
-
-
-
-
+      p.dismiss()
+    })
   }
-  dismiss() {
+
+  dismissModal() {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data
     this.modalCtrl.dismiss({
 
     });
   }
- 
+
 
   async booksubmit(status: string, id: string) {
     if (status === 'submitted') {
