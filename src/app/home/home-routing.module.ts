@@ -33,6 +33,10 @@ const routes: Routes = [
   {
     path: 'librarianside',
     loadChildren: () => import('../pages/librarianside/librarianside.module').then( m => m.LibrariansidePageModule)
+  },
+  {
+    path: 'librarystudentside',
+    loadChildren: () => import('../pages/librarystudentside/librarystudentside.module').then( m => m.LibrarystudentsidePageModule)
   }
 ];
 

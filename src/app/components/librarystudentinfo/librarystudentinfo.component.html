@@ -42,7 +42,7 @@
       <ion-item-options side="end">
         <ion-item-option
           *ngIf="history.status !== 'submitted'"
-          (click)="booksubmit(history.status, history.id)"
+          (click)="booksubmit(history.id)"
           color="success"
         >
           <ion-icon slot="icon-only" name="checkmark"> </ion-icon

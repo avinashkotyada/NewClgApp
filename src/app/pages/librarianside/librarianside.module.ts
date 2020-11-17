@@ -7,15 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { LibrariansidePageRoutingModule } from './librarianside-routing.module';
 
 import { LibrariansidePage } from './librarianside.page';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
+import { SuperTabsModule} from '@ionic-super-tabs/angular'
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LibrariansidePageRoutingModule
+    LibrariansidePageRoutingModule,
+    SuperTabsModule
+  
   ],
   declarations: [LibrariansidePage],
 })
