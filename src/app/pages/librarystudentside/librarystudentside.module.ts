@@ -7,12 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { LibrarystudentsidePageRoutingModule } from './librarystudentside-routing.module';
 
 import { LibrarystudentsidePage } from './librarystudentside.page';
-
+import { SuperTabsModule} from '@ionic-super-tabs/angular'
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    SuperTabsModule,
     LibrarystudentsidePageRoutingModule
   ],
   declarations: [LibrarystudentsidePage]

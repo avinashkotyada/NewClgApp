@@ -17,7 +17,7 @@ export class LibrariansidePage implements OnInit {
   dummyStudents: StudentModel[]
   books: Book[];
   dummybooks: Book[]
-  pendings : BookHistorywithid[]
+  pendings: BookHistorywithid[]
 
 
   constructor(private loadingController: LoadingController, private toastController: ToastController, private db: AngularFirestore, private modalController: ModalController, private barcodescanner: BarcodeScanner) { }
@@ -46,9 +46,9 @@ export class LibrariansidePage implements OnInit {
     this.db.collection<BookHistory>('pendings').snapshotChanges().subscribe(pendings => {
       this.pendings = []
       pendings.forEach(pending => {
-        this.pendings.push({...pending.payload.doc.data(),id :pending.payload.doc.id} )
+        this.pendings.push({ ...pending.payload.doc.data(), id: pending.payload.doc.id })
       })
-    
+
     })
 
   }
@@ -96,92 +96,79 @@ export class LibrariansidePage implements OnInit {
   }
 
 
-   scanBarcode() {
-    const modal = this.modalController.create({
-                  component: IssuingbookComponent,
-    
-                  componentProps: {
-                    'student_id': '1299'
-                  }
-    
-                }).then(p => p.present())
-   }
-  //   const time = new Date().getTime()
+  scanBarcode() {
 
-  //   const options: BarcodeScannerOptions = {
-  //     preferFrontCamera: false,
-  //     showFlipCameraButton: true,
-  //     showTorchButton: true,
-  //     torchOn: false,
-  //     prompt: 'Place a barcode inside the scan area',
-  //     resultDisplayDuration: 500,
-  //     formats: 'EAN_13,EAN_8,QR_CODE,PDF_417',
-  //     orientation: 'portrait',
-  //   };
+    const time = new Date().getTime()
 
-  //   this.barcodescanner.scan(options).then(barcodeData => {
+    const options: BarcodeScannerOptions = {
+      preferFrontCamera: false,
+      showFlipCameraButton: true,
+      showTorchButton: true,
+      torchOn: false,
+      prompt: 'Place a QRcode inside the scan area',
+      resultDisplayDuration: 500,
+      formats: 'EAN_13,EAN_8,QR_CODE,PDF_417',
+      orientation: 'portrait',
+    };
+
+    this.barcodescanner.scan(options).then(barcodeData => {
 
 
-  //     this.ScannedData = barcodeData.text;
+      const ScannedData = barcodeData.text;
+      const student_id = ScannedData.split('/')[0]
+      const a = time - parseInt(ScannedData.split('/')[1])
+      if (a > 30000) {
 
+        const toast = this.toastController.create({
+          message: "QRcode Expired ,it only lasts for 30secs",
+          duration: 1200
+        }).then(
+          p => p.present()
+        )
+        return
+      }
 
-  //     const student_id = this.ScannedData.split('/')[0]
-  //     const a = time - parseInt(this.ScannedData.split('/')[1])
-  //     if (a > 30000) {
+      this.db.collection('students').doc(student_id).snapshotChanges().subscribe(
+        student => {
 
-  //       const toast = this.toastController.create({
-  //         message: "QrCode Expired it only lasts for 30secs",
-  //         duration: 1200
-  //       }).then(
-  //         p => p.present()
-  //       )
+          if (student.payload.exists) {
 
+            const modal = this.modalController.create({
+              component: IssuingbookComponent,
 
-  //       return
+              componentProps: {
+                'student_id': student_id
+              }
 
-  //     }
-
-  //     this.db.collection('students').doc(student_id).snapshotChanges().subscribe(
-  //       student => {
-
-  //         if (student.payload.exists) {
-
-  //           const modal = this.modalController.create({
-  //             component: IssuingbookComponent,
-
-  //             componentProps: {
-  //               'student_id': student_id
-  //             }
-
-  //           }).then(p => p.present())
+            }).then(p => p.present())
 
 
 
 
-  //         } else {
+          } else {
 
-  //           const toast = this.toastController.create({
-  //             message: "Student doesn't exists",
-  //             duration: 1200
-  //           }).then(
-  //             p => p.present()
-  //           )
+            const toast = this.toastController.create({
+              message: "Student doesn't exists",
+              duration: 1200
+            }).then(
+              p => p.present()
+            )
 
-  //         }
-  //       }
-
-
-  //     )
+          }
+        }
 
 
-  //   }).catch(err => {
-  //     console.log('Error', err);
-  //   });
-  // }
+      )
+
+
+    }).catch(err => {
+      console.log('Error', err);
+    });
+  }
 
 
 
-  
+
 
 
 

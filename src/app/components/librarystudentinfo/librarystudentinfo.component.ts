@@ -28,7 +28,7 @@ export class LibrarystudentinfoComponent implements OnInit {
       this.currentStudent_photo = this.currentStudent.student_photo
     })
 
-    this.db.collection('bookhistory').doc(this.student_id).collection<BookHistory>('link', q => q.orderBy('takenin_date',)).snapshotChanges().subscribe(
+    this.db.collection('bookhistory').doc(this.student_id).collection<BookHistory>('link', q => q.orderBy('takenin_date')).snapshotChanges().subscribe(
       total_history => {
         this.student_history = []
         total_history.forEach(single_history => {

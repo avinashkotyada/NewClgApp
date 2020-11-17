@@ -12,37 +12,15 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LibrarystudentsidePage implements OnInit {
 
-  @ViewChild('slides') Slides: IonSlides;
   student_id: string
   student_history: BookHistory[];
-  Segment = 0
   books: Book[];
   dummybooks: Book[]
-  slideOpts = {
-
-    initialSlide: 0,
-    speed: 400,
-
-  };
-
-
-
 
 
   constructor(private Loginservice: LoginService, private db: AngularFirestore, private loginService: LoginService, private barcodeScanner: BarcodeScanner) { }
 
   ngOnInit() {
-    // this.db.collection('bookhistory').doc(this.student_id).collection<BookHistory>('link').snapshotChanges().subscribe(
-    //   history => {
-    //     this.student_history = []
-
-    //     history.forEach(a => {
-    //       const data = a.payload.doc.data();
-    //       const id = a.payload.doc.id;
-    //       this.student_history.push({ ...data })
-    //     })
-    //     console.log(history)
-    //   })
     this.student_id = this.Loginservice.getUserId()
     this.db.collection('bookhistory').doc(this.student_id).collection<BookHistory>('link').snapshotChanges().subscribe(history => {
       this.student_history = []
@@ -64,26 +42,11 @@ export class LibrarystudentsidePage implements OnInit {
 
 
   }
-  slidechange() {
-    this.Slides.getActiveIndex().then((index: number) => {
-      this.Segment = index
-
-    }
-    )
-
-
-  }
-  segmentchange(event: any) {
-
-    this.Slides.slideTo(event.detail.value)
-  }
+ 
   encodeText() {
     const time = new Date().getTime().toString()
     const encodeData = this.student_id+'/'+ time
     this.barcodeScanner.encode(this.barcodeScanner.Encode.TEXT_TYPE,encodeData).then((encodedData) => {
-
-      console.log(encodedData);
-      // this.encodedData = encodedData;
 
   }, (err) => {
       console.log("Error occured : " + err);

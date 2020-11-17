@@ -2,59 +2,82 @@
   <ion-toolbar>
     <ion-title>librarystudentside</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="encodeText()"><ion-icon  slot="icon-only" name="qr-code"></ion-icon></ion-button>
-  </ion-buttons>
-  </ion-toolbar>
-  <ion-toolbar>
-    <ion-segment  [(ngModel)]='Segment'  #segment (ionChange)='segmentchange($event)'>
-      <ion-segment-button value="0"> Students </ion-segment-button>
-      <ion-segment-button value="1"> Books </ion-segment-button>
-    </ion-segment>
-
+      <ion-button (click)="encodeText()"
+        ><ion-icon slot="icon-only" name="qr-code"></ion-icon
+      ></ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
+<super-tabs>
+  <super-tabs-toolbar color="success" slot="top">
+    <super-tab-button>
+      <ion-label>History</ion-label>
+    </super-tab-button>
 
-<ion-content>
-  <ion-slides (ionSlideDidChange)='slidechange()' (ionSlidesDidLoad)='slidechange()'  [options]="slideOpts" #slides>
-    <ion-slide >
-      <div class="div">
-        <ion-card *ngFor="let history of student_history">
-          <ion-item >
-            <div>
-            <ion-label class='ion-margin-top'><strong>{{ history.book_name }}</strong></ion-label>
-            <ion-label class="ion-margin-top" color="primary"> Taken Date : {{ history.takenin_date | date }}</ion-label>
-            <ion-label class="ion-margin-vertical" color="success" *ngIf='history.status==="submitted"'>Submittedtime :{{history.submit_date| date}}</ion-label>
-            <ion-label class="ion-margin-vertical" color='warning' *ngIf='history.status==="pending"'>To be Submitted by :{{history.takenin_date + history.submit_date*86400000|date}}</ion-label>
-            <ion-label class="ion-margin-vertical" color='danger' *ngIf='history.status==="over due"'>To be Submitted by :{{history.takenin_date + history.submit_date*86400000|date}}</ion-label>
-        </div>
-        
-          <ion-chip  *ngIf="history.status==='submitted'"  slot="end" color="success">
-              <ion-label color="success">{{ history.status }}</ion-label>
-            </ion-chip>
-            <ion-chip *ngIf="history.status==='pending'"  slot="end" color="warning">
-              <ion-label color="warning">{{ history.status }}</ion-label>
-            </ion-chip>
-            <ion-chip *ngIf="history.status==='over due'"  slot="end" color="danger">
-              <ion-label color="danger">{{ history.status }}</ion-label>
-            </ion-chip>
-          </ion-item>
-        </ion-card>
-        
-      
-      </div>
-    </ion-slide>
-    <ion-slide>
-    <div class=div>
-      <ion-searchbar (ionChange)="filterBooks($event)"></ion-searchbar>
-      <ion-item *ngFor="let book of dummybooks">
-        <ion-label>{{book.book_name}}</ion-label>
-        <ion-chip><ion-label>{{book.author}}</ion-label></ion-chip>
-      </ion-item>
-     
-    </div>
-    </ion-slide>
-    
-  </ion-slides>
+    <super-tab-button>
+      <ion-label>Books</ion-label>
+    </super-tab-button></super-tabs-toolbar>
 
-</ion-content>
+    <super-tabs-container>
+      <super-tab>
+        <ion-content>
+          <ion-card *ngFor="let history of student_history">
+            <ion-item>
+              <div>
+                <ion-label class="ion-margin-top"
+                  ><strong>{{ history.book_name }}</strong></ion-label
+                >
+                <ion-label class="ion-margin-top" color="primary">
+                  Taken Date : {{ history.takenin_date | date }}</ion-label
+                >
+                <ion-label
+                  class="ion-margin-vertical"
+                  color="success"
+                  *ngIf='history.status==="submitted"'
+                  >Submittedtime :{{history.submit_date| date}}</ion-label
+                >
+                <ion-label
+                  class="ion-margin-vertical"
+                  color="warning"
+                  *ngIf='history.status==="pending"'
+                  >To be Submitted by :{{history.takenin_date +
+                  history.submit_date*86400000|date}}</ion-label
+                >
+                <ion-label
+                  class="ion-margin-vertical"
+                  color="danger"
+                  *ngIf='history.status==="over due"'
+                  >To be Submitted by :{{history.takenin_date +
+                  history.submit_date*86400000|date}}</ion-label
+                >
+              </div>
+          
+              <ion-chip *ngIf="history.status==='submitted'" slot="end" color="success">
+                <ion-label color="success">{{ history.status }}</ion-label>
+              </ion-chip>
+              <ion-chip *ngIf="history.status==='pending'" slot="end" color="warning">
+                <ion-label color="warning">{{ history.status }}</ion-label>
+              </ion-chip>
+              <ion-chip *ngIf="history.status==='over due'" slot="end" color="danger">
+                <ion-label color="danger">{{ history.status }}</ion-label>
+              </ion-chip>
+            </ion-item>
+          </ion-card>
+
+        </ion-content>
+      </super-tab>
+<super-tab>
+  <ion-content>
+    <ion-searchbar (ionChange)="filterBooks($event)"></ion-searchbar>
+    <ion-item *ngFor="let book of dummybooks">
+      <ion-label>{{book.book_name}}</ion-label>
+      <ion-chip><ion-label>{{book.author}}</ion-label></ion-chip>
+    </ion-item>
+
+  </ion-content>
+</super-tab>
+    </super-tabs-container>
+</super-tabs>
+
+
 
