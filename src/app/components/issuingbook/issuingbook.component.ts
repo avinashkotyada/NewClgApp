@@ -52,6 +52,8 @@ this.db.collection('pendings').doc(id).set({
       student_id: this.student_id
     })
 
+    this.dismiss()
+
   }
 
 
