@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
+import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-import { IonSlides } from '@ionic/angular';
+import { from, Observable } from 'rxjs';
+import { finalize, switchMap, tap } from 'rxjs/operators';
 import { Book, BookHistory } from 'src/app/models/bookhistory.model';
 import { LoginService } from 'src/app/services/login.service';
 
@@ -18,7 +21,7 @@ export class LibrarystudentsidePage implements OnInit {
   dummybooks: Book[]
 
 
-  constructor(private Loginservice: LoginService, private db: AngularFirestore, private loginService: LoginService, private barcodeScanner: BarcodeScanner) { }
+  constructor(private fireStorage : AngularFireStorage,private Loginservice: LoginService, private db: AngularFirestore, private loginService: LoginService, private barcodeScanner: BarcodeScanner) { }
 
   ngOnInit() {
     this.student_id = this.Loginservice.getUserId()
@@ -68,5 +71,45 @@ export class LibrarystudentsidePage implements OnInit {
     });
 
   }
+  selectedFile :any
+  task: Promise<any>;
+  
+
+  percentage: Observable<number>;
+  snapshot: any
+  downloadURL: any
+  chooseFile (event) {
+    this.selectedFile = event.target.files[0]
+    const path = `test/${Date.now()}_${this.selectedFile.name}`;
+
+    // Reference to storage bucket
+    const ref = this.fireStorage.ref(path);
+  
+    this.task = this.fireStorage.upload(path,this.selectedFile).then(a=>{
+      
+
+      this.downloadURL=ref.getDownloadURL().toPromise()
+      console.log(this.downloadURL)
+     
+
+
+      
+      
+      
+      
+
+
+    })
+      
+     
+
+    
+    
+    
+    
+    
+    
+  }
 
 }
+

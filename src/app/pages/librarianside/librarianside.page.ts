@@ -7,6 +7,7 @@ import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-sca
 import { IssuingbookComponent } from 'src/app/components/issuingbook/issuingbook.component';
 import { Book, BookHistory, BookHistorywithid } from 'src/app/models/bookhistory.model';
 
+
 @Component({
   selector: 'app-librarianside',
   templateUrl: './librarianside.page.html',
@@ -165,6 +166,7 @@ export class LibrariansidePage implements OnInit {
       console.log('Error', err);
     });
   }
+  
 
 
 

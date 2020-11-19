@@ -16,6 +16,9 @@
 
     <super-tab-button>
       <ion-label>Books</ion-label>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-label>Pdf's</ion-label>
     </super-tab-button></super-tabs-toolbar>
 
     <super-tabs-container>
@@ -74,6 +77,25 @@
       <ion-chip><ion-label>{{book.author}}</ion-label></ion-chip>
     </ion-item>
 
+  </ion-content>
+</super-tab>
+<super-tab>
+  <ion-content>
+    
+    <ion-list>
+      <ion-item>
+        <ion-input type="file" name="inputFile" (change)="chooseFile($event)" required>></ion-input>
+      </ion-item>
+      <div>
+        <ion-progress-bar [value]="percentage" max="100"></ion-progress-bar>
+        
+      </div>
+      
+        
+      
+    </ion-list>
+  
+    
   </ion-content>
 </super-tab>
     </super-tabs-container>
