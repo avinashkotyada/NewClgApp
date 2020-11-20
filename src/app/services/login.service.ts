@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 
 @Injectable({
@@ -29,14 +30,20 @@ export class LoginService {
     this.UserisLoggedIn = !this.UserisLoggedIn
   }
 
-  constructor(private afAuth: AngularFireAuth) { }
+  constructor(private afAuth: AngularFireAuth,private googlePlus : GooglePlus) { }
+  userData: any = {};
   async googleSignin() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    const credential = await this.afAuth.signInWithPopup(provider);
-    console.log(credential.user.displayName,credential.user.email,credential.user.phoneNumber);
+    this.googlePlus.login({})
+      .then(result =>{this.userData = result
+        console.log(this.userData)
+      })
+      .catch(err => this.userData = `Error ${JSON.stringify(err)}`);
+   
+   
   }
   async signOut() {
-    await this.afAuth.signOut();
+    this.googlePlus.logout()
+    
     
   }
   

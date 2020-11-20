@@ -41,28 +41,29 @@ export class LoginPage implements OnInit {
 
 
   clickongooglesignin() {
-    // this.loginService.googleSignin();
-    this.studentsService.getstudentbyid(this.student_id).subscribe(
-       student =>    this.student = student
-    )
+    this.loginService.googleSignin();
+  //   this.studentsService.getstudentbyid(this.student_id).subscribe(
+  //      student =>    this.student = student
+  //   )
     
 
-    if(this.student.student_id){
-      this.loginService.changeloginstatus()
-      this.router.navigateByUrl('/home')
+  //   if(this.student.student_id){
+  //     this.loginService.changeloginstatus()
+  //     this.router.navigateByUrl('/home')
 
      
 
-     }
-     else{
-       this.loginService.changeloginstatus()
-       this.studentsService.addstudent(this.student_name,this.student_email,this.student_id,this.student_profileImage)
-       this.router.navigateByUrl('/home')
+  //    }
+  //    else{
        
-      }
+  //      this.loginService.changeloginstatus()
+  //      this.studentsService.addstudent(this.student_name,this.student_email,this.student_id,this.student_profileImage)
+  //      this.router.navigateByUrl('/home')
+       
+  //     }
 
-      this.presentToast()
-      this.loginService.setUserId(this.student_id)
+  //     this.presentToast()
+  //     this.loginService.setUserId(this.student_id)
    
   }
 

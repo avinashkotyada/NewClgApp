@@ -13,7 +13,7 @@ import { StudentsService } from '../services/students.service';
 })
 export class HomePage {
 
-  profile1 : StudentModel;
+  profile1 : StudentModel={student_photo :"",student_email:"",student_id:"",student_name:""};
   sub :Subscription;
   current_student_id : string;
   constructor(private alertController : AlertController, private loginService : LoginService, private router : Router,private studentService :StudentsService) {}
