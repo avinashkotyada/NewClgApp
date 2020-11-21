@@ -7,6 +7,7 @@ import { from, Observable } from 'rxjs';
 import { finalize, switchMap, tap } from 'rxjs/operators';
 import { Book, BookHistory } from 'src/app/models/bookhistory.model';
 import { LoginService } from 'src/app/services/login.service';
+import { StudentsService } from 'src/app/services/students.service';
 
 @Component({
   selector: 'app-librarystudentside',
@@ -14,6 +15,7 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./librarystudentside.page.scss'],
 })
 export class LibrarystudentsidePage implements OnInit {
+  [x: string]: any;
 
   student_id: string
   student_history: BookHistory[];
@@ -21,10 +23,10 @@ export class LibrarystudentsidePage implements OnInit {
   dummybooks: Book[]
 
 
-  constructor(private fireStorage : AngularFireStorage,private Loginservice: LoginService, private db: AngularFirestore, private loginService: LoginService, private barcodeScanner: BarcodeScanner) { }
+  constructor(private studentService : StudentsService,private fireStorage : AngularFireStorage,private loginservice: LoginService, private db: AngularFirestore, private loginService: LoginService, private barcodeScanner: BarcodeScanner) { }
 
   ngOnInit() {
-    this.student_id = this.Loginservice.getUserId()
+    this.student_id = this.studentService.getuserid()
     this.db.collection('bookhistory').doc(this.student_id).collection<BookHistory>('link',q => q.orderBy('takenin_date')).snapshotChanges().subscribe(history => {
       this.student_history = []
       history.forEach(a => {
