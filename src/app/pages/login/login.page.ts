@@ -26,7 +26,7 @@ export class LoginPage implements OnInit {
 
 
 
-  constructor(private loadingController: LoadingController,  private platform: Platform, private toastController: ToastController, private db: AngularFirestore, private router: Router, private afAuth: AngularFireAuth, private googlePlus: GooglePlus) { }
+  constructor(private studentService : StudentsService ,private loadingController: LoadingController,  private platform: Platform, private toastController: ToastController, private db: AngularFirestore, private router: Router, private afAuth: AngularFireAuth, private googlePlus: GooglePlus) { }
 
   ngOnInit() {
 
@@ -98,11 +98,14 @@ export class LoginPage implements OnInit {
 
 
     const student_id = user.email.split('@')[0]
+    this.studentService.setUserid(student_id)
+    
     console.log(student_id)
 
     this.db.collection('students').doc(student_id).snapshotChanges().subscribe(
       student => {
         if (student.payload.exists) {
+          this.studentService.setCurrentuser(student_id)
           this.router.navigateByUrl('/home')
           dialog.dismiss()
           this.presentToast()
@@ -119,6 +122,8 @@ export class LoginPage implements OnInit {
           }
 
           )
+          this.studentService.setCurrentuser(student_id)
+
           this.router.navigateByUrl('/home')
           dialog.dismiss()
           this.presentToast()

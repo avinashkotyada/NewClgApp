@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { StudentModel } from '../models/student.model';
 
 
 @Injectable({
@@ -26,8 +28,9 @@ export class LoginService {
   changeloginstatus() {
     this.UserisLoggedIn = !this.UserisLoggedIn
   }
+  
 
-  constructor() { }
+  constructor(private db : AngularFirestore) { }
  
 
 

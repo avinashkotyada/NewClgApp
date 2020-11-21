@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
@@ -12,11 +13,13 @@ import { StudentsService } from '../services/students.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  photo : string
+  name : string
+  id : string
 
-  // profile1 : StudentModel={student_photo :"",student_email:"",student_id:"",student_name:""};
-  // sub :Subscription;
-  // current_student_id : string;
-  // constructor(private alertController : AlertController, private loginService : LoginService, private router : Router,private studentService :StudentsService) {}
+  
+ 
+  constructor(private db : AngularFirestore,private alertController : AlertController, private loginService : LoginService, private router : Router,private studentService :StudentsService) {}
 
 
 //  async onLogout(){
@@ -51,10 +54,15 @@ export class HomePage {
 
 //   }
   ngOnInit(){
-    // this.current_student_id =this.loginService.getUserId()
-    // this.sub = this.studentService.getallstudents().subscribe(data=>
-    //   this.profile1 = data.filter(p=>p.student_id === this.current_student_id)[0]);
+    this.db.collection('students').doc<StudentModel>(this.studentService.getuserid()).valueChanges().subscribe(student=>{
+      
+      this.photo = student.student_photo
+      this.name = student.student_name
+      this.id = student.student_id
     
+    
+    })
   }
+
 
 }

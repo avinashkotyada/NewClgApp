@@ -1,16 +1,18 @@
 <ion-menu contentId='home'>
   <ion-list id="inbox-list">
-    <!-- <ion-menu-toggle>
+     <ion-menu-toggle>
       <ion-item lines="none" [routerLink]="['/','home','profile']" detail class="userInfo" button>
         
-        <ion-avatar><ion-img [src]="profile1.student_photo"></ion-img></ion-avatar>
+        <div class="profile_image">
+          <ion-avatar><ion-img [src]="photo"></ion-img></ion-avatar>
+        </div>
         <div class="profile_info">
-          <ion-title>{{profile1.student_name}}</ion-title>
-          <ion-note>{{profile1.student_id}}</ion-note>
+          <ion-title>{{name}}</ion-title>
+          <ion-note>{{id}}</ion-note>
         </div>
         
       </ion-item>
-    </ion-menu-toggle> -->
+    </ion-menu-toggle> 
     <ion-menu-toggle>
       <ion-item [routerLink]="['/','home','librarianside']">
         Librarian Side
