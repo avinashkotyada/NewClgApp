@@ -4,11 +4,11 @@
       <ion-item lines="none" [routerLink]="['/','home','profile']" detail class="userInfo" button>
         
         <div class="profile_image">
-          <ion-avatar><ion-img [src]="photo"></ion-img></ion-avatar>
+          <ion-avatar><ion-img [src]="student_photo"></ion-img></ion-avatar>
         </div>
         <div class="profile_info">
-          <ion-title>{{name}}</ion-title>
-          <ion-note>{{id}}</ion-note>
+          <ion-title>{{student_name}}</ion-title>
+          <ion-note>{{student_id}}</ion-note>
         </div>
         
       </ion-item>
@@ -29,7 +29,7 @@
       </ion-item>
     </ion-menu-toggle>
     <ion-menu-toggle>
-      <ion-item (click)='onLogout()'>
+      <ion-item>
         Logout
       </ion-item>
     </ion-menu-toggle>

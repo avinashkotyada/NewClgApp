@@ -8,39 +8,26 @@ import { StudentModel } from '../models/student.model';
   providedIn: 'root'
 })
 export class StudentsService {
-  currentStudent : StudentModel
-  id : string
 
- 
+  student_id : string
   constructor(private db :AngularFirestore) { }
-  setCurrentuser(student_id : string){
-    this.db.collection('students').doc<StudentModel>(student_id).valueChanges().subscribe(student=>{
-      this.currentStudent = student
-
-
-    })
-
-  }
-  getCurrentUser(){
-    return this.currentStudent
-  }
-  updateCurrentUser(student_photo : string,student_name : string, student_phoneNumber :string){
-    this.db.collection('students').doc(this.currentStudent.student_id).update({
+ 
+  updateCurrentUser(student_photo : string, student_phoneNumber : number){
+    this.db.collection('students').doc(this.student_id).update({
       
             student_photo: student_photo,
-            student_name: student_name,
             student_phoneNumber: student_phoneNumber,
             
 
     })
 
   }
-  setUserid(id:string){
-    this.id = id
+  setUserid(student_id:string){
+    this.student_id = student_id
 
   }
   getuserid(){
-    return this.id
+    return this.student_id
   }
 
   

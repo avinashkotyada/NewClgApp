@@ -1,33 +1,33 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
+      <ion-back-button [defaultHref]="['/','home']"></ion-back-button>
     </ion-buttons>
     <ion-title>profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding="true">
-  <form [formGroup]="form">
-    <ion-avatar tappable (click)="presentActionSheet()"><ion-img [src]="form.get('photo').value"></ion-img></ion-avatar>
+
+  <ion-avatar tappable (click)="presentActionSheet()"><ion-img [src]="student_photo"></ion-img></ion-avatar>
     <ion-grid>
       <ion-row>
         <ion-col size="10" offset="1" class="ion-align-self-center">
 
           <ion-item lines="none">
             <ion-label position="stacked">Name</ion-label>
-            <ion-input formControlName="name"  type="text"  ></ion-input>
+            <ion-input type="text" value={{student_name}} [disabled]=true  ></ion-input>
           </ion-item>
 
           <ion-item lines="none">
             <ion-label position="stacked" >Email Id</ion-label>
-            <ion-input formControlName="emailid"  email type="email"></ion-input>
+            <ion-input  value={{student_email}} [disabled]=true  type="email"></ion-input>
           </ion-item>
           <ion-row>
             <ion-col>
               <ion-item lines="none">
                 <ion-label position="stacked" >Entry number</ion-label>
-                <ion-input formControlName="entry_no" type="text"  ></ion-input>
+                <ion-input type="text" value={{student_id}} [disabled]=true  ></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -35,18 +35,18 @@
             <ion-row>
               <ion-item lines="none">
                 <ion-label position="stacked" >Phone Number</ion-label>
-                <ion-input formControlName="phone_number" type="text"  ></ion-input>
+                <ion-input type="text" [(ngModel)]='student_phoneNumber'   ></ion-input>
               </ion-item>
             </ion-row>
           </ion-col>
   
 
-          <ion-button expand="block" [disabled]="!form.dirty" (click)="onSubmit()" shape="round" >Save</ion-button>
+          <ion-button expand="block"  (click)="onSubmit()" shape="round" >Save</ion-button>
 
         </ion-col>
       </ion-row>
     </ion-grid>
-  </form>
+ 
   
 </ion-content>
 

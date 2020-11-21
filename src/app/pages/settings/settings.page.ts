@@ -11,21 +11,20 @@ import { StudentsService } from 'src/app/services/students.service';
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage implements OnInit {
-  profile1 : StudentModel
-  photo : string
-  name : string
-  id : string
+  student_photo : string
+  student_name : string
+  student_id : string
 
   
 
-  constructor(private db :AngularFirestore,private renderer : Renderer2,private modalController : ModalController,private studentService :StudentsService,private loginService : LoginService) { }
+  constructor(private db :AngularFirestore,private renderer : Renderer2,private studentService :StudentsService) { }
 
   ngOnInit() {
-    this.db.collection('students').doc<StudentModel>(this.studentService.getCurrentUser().student_id).valueChanges().subscribe(student=>{
+    this.db.collection('students').doc<StudentModel>(this.studentService.getuserid()).valueChanges().subscribe(student=>{
       
-      this.photo = student.student_photo
-      this.name = student.student_name
-      this.id = student.student_id
+      this.student_photo = student.student_photo
+      this.student_name = student.student_name
+      this.student_id = student.student_id
     })
 
   }

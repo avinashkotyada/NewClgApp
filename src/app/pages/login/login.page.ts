@@ -16,17 +16,8 @@ import { asapScheduler } from 'rxjs';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  //google sign in gives this info
-  student_name: string
-  student_email: string
-  student_id: string
-  student_profileImage: string
-  student: StudentModel
-  p: any
 
-
-
-  constructor(private studentService : StudentsService ,private loadingController: LoadingController,  private platform: Platform, private toastController: ToastController, private db: AngularFirestore, private router: Router, private afAuth: AngularFireAuth, private googlePlus: GooglePlus) { }
+  constructor(private studentService: StudentsService, private loadingController: LoadingController, private platform: Platform, private toastController: ToastController, private db: AngularFirestore, private router: Router, private afAuth: AngularFireAuth, private googlePlus: GooglePlus) { }
 
   ngOnInit() {
 
@@ -37,55 +28,53 @@ export class LoginPage implements OnInit {
     const toast = await this.toastController.create({
       message: 'Logged In Successfully',
       duration: 1200
-  
+
     });
     toast.present();
   }
 
-  async presentAlert() {
-    
-  }
-
-
   clickongooglesignin() {
 
-    const alert = this.loadingController.create({
-    
-    message: 'Please wait ,this may take some time',
-    backdropDismiss : false,
-    }).then(dialog =>{ 
+    const loadingController = this.loadingController.create({
+
+      message: 'Please wait ,this may take some time',
+      backdropDismiss: false,
+    }).then(dialog => {
 
       if (this.platform.is('cordova')) {
         this.googlePlus.login({
-      }).then(result => {
-        const credential = firebase.auth.GoogleAuthProvider
-          .credential(null, result.accessToken)
-        this.afAuth.signInWithCredential(credential)
-          .then((success) => {
-            const user = success.user
-            dialog.present()
-            this.checkuseradd(user,dialog)
-          }).catch(err => console.log(`Error ${JSON.stringify(err)}`));
+        }).then(result => {
+          dialog.present()
+          const credential = firebase.auth.GoogleAuthProvider
+            .credential(null, result.accessToken)
+          this.afAuth.signInWithCredential(credential)
+            .then((success) => {
+              const user = success.user
+              this.checkuseradd(user, dialog)
+            }).catch(err => {
+              console.log(`Error ${JSON.stringify(err)}`)
+              dialog.present()
+            });
 
-      }).catch(err => console.log(`Error ${JSON.stringify(err)}`));
-
-
-    } else {
-
-
-      this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(success => {
-        const user = success.user;
-        dialog.present()
-        this.checkuseradd(user,dialog)
-
-      }).
-        catch(err => {
-          console.log(err.message, 'error in google login');
-        });
+        }).catch(err => console.log(`Error ${JSON.stringify(err)}`));
 
 
+      } else {
 
-    }
+
+        this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(success => {
+          const user = success.user;
+          dialog.present()
+          this.checkuseradd(user, dialog)
+
+        }).
+          catch(err => {
+            console.log(err.message, 'error in google login');
+          });
+
+
+
+      }
 
 
 
@@ -94,23 +83,20 @@ export class LoginPage implements OnInit {
     )
   }
 
-  checkuseradd(user: firebase.User, dialog : HTMLIonLoadingElement) {
+  checkuseradd(user: firebase.User, dialog: HTMLIonLoadingElement) {
 
 
     const student_id = user.email.split('@')[0]
     this.studentService.setUserid(student_id)
-    
-    console.log(student_id)
-
     this.db.collection('students').doc(student_id).snapshotChanges().subscribe(
       student => {
         if (student.payload.exists) {
-          this.studentService.setCurrentuser(student_id)
+
           this.router.navigateByUrl('/home')
           dialog.dismiss()
           this.presentToast()
 
-        }else {
+        } else {
           this.db.collection('students').doc(student_id).set({
             student_uid: user.uid,
             student_photo: user.photoURL,
@@ -121,12 +107,16 @@ export class LoginPage implements OnInit {
 
           }
 
-          )
-          this.studentService.setCurrentuser(student_id)
+          ).then(success => {
+            this.router.navigateByUrl('/home')
+            dialog.dismiss()
+            this.presentToast()
+          }
 
-          this.router.navigateByUrl('/home')
-          dialog.dismiss()
-          this.presentToast()
+
+          )
+
+
         }
       }
     )

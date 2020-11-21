@@ -13,9 +13,9 @@ import { StudentsService } from '../services/students.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  photo : string
-  name : string
-  id : string
+  student_photo : string
+  student_name : string
+  student_id : string
 
   
  
@@ -56,9 +56,9 @@ export class HomePage {
   ngOnInit(){
     this.db.collection('students').doc<StudentModel>(this.studentService.getuserid()).valueChanges().subscribe(student=>{
       
-      this.photo = student.student_photo
-      this.name = student.student_name
-      this.id = student.student_id
+      this.student_photo = student.student_photo
+      this.student_name = student.student_name
+      this.student_id = student.student_id
     
     
     })
