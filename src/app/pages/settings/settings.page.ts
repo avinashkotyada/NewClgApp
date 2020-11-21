@@ -12,34 +12,34 @@ import { StudentsService } from 'src/app/services/students.service';
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage implements OnInit {
-  profile1 : StudentModel;
-  sub :Subscription;
-  current_student_id : string
+  // profile1 : StudentModel;
+  // sub :Subscription;
+  // current_student_id : string
 
-  constructor(private renderer : Renderer2,private modalController : ModalController,private studentService :StudentsService,private loginService : LoginService) { }
+  // constructor(private renderer : Renderer2,private modalController : ModalController,private studentService :StudentsService,private loginService : LoginService) { }
 
   ngOnInit() {
-    this.current_student_id = this.loginService.getUserId()
-    this.sub = this.studentService.getallstudents().subscribe(data=>
-      this.profile1 = data.filter(p=>p.student_id === this.current_student_id)[0]);
+    // this.current_student_id = this.loginService.getUserId()
+    // this.sub = this.studentService.getallstudents().subscribe(data=>
+    //   this.profile1 = data.filter(p=>p.student_id === this.current_student_id)[0]);
 
   }
-  onClick(event){
-    if(event.detail.checked){
-      this.renderer.setAttribute(document.body,'color-theme','dark')
+  // onClick(event){
+  //   if(event.detail.checked){
+  //     this.renderer.setAttribute(document.body,'color-theme','dark')
 
-    }
-    else{
-      this.renderer.setAttribute(document.body,'color-theme','light')
-    }
+  //   }
+  //   else{
+  //     this.renderer.setAttribute(document.body,'color-theme','light')
+  //   }
     
-  }
-  async presentModal() {
-    const modal = await this.modalController.create({
-      component: ResetpasswordComponent,
-      cssClass: 'my-custom-class'
-    });
-    return await modal.present();
-  }
+  // }
+  // async presentModal() {
+  //   const modal = await this.modalController.create({
+  //     component: ResetpasswordComponent,
+  //     cssClass: 'my-custom-class'
+  //   });
+  //   return await modal.present();
+  // }
 
 }
