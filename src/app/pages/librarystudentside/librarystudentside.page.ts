@@ -26,7 +26,7 @@ export class LibrarystudentsidePage implements OnInit {
   constructor(private studentService : StudentsService,private fireStorage : AngularFireStorage,private loginservice: LoginService, private db: AngularFirestore, private loginService: LoginService, private barcodeScanner: BarcodeScanner) { }
 
   ngOnInit() {
-    this.student_id = this.studentService.getuserid()
+    // this.student_id = this.studentService.getuserid()
     this.db.collection('bookhistory').doc(this.student_id).collection<BookHistory>('link',q => q.orderBy('takenin_date')).snapshotChanges().subscribe(history => {
       this.student_history = []
       history.forEach(a => {

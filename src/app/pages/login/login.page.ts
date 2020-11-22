@@ -21,6 +21,7 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
 
+
   }
 
   async presentToast() {
@@ -102,8 +103,7 @@ export class LoginPage implements OnInit {
             student_name: user.displayName,
             student_phoneNumber: user.phoneNumber,
             student_id: student_id,
-            student_email: user.email,
-            student_outstatus: 0
+            student_email: user.email
 
           }
 

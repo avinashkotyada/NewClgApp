@@ -9,25 +9,29 @@ import { StudentModel } from '../models/student.model';
 })
 export class StudentsService {
 
-  student_id : string
+  private student_id = new BehaviorSubject<string>('')
   constructor(private db :AngularFirestore) { }
  
   updateCurrentUser(student_photo : string, student_phoneNumber : number){
-    this.db.collection('students').doc(this.student_id).update({
+    this.getuserid().subscribe(student_id => {
+      this.db.collection('students').doc(student_id).update({
       
-            student_photo: student_photo,
-            student_phoneNumber: student_phoneNumber,
-            
+        student_photo: student_photo,
+        student_phoneNumber: student_phoneNumber,
+        
 
+})
     })
+ 
 
   }
   setUserid(student_id:string){
-    this.student_id = student_id
+    this.getuserid().pipe(take(1)).subscribe(stud_id=> this.student_id.next(student_id))
+    
 
   }
   getuserid(){
-    return this.student_id
+    return this.student_id.asObservable()
   }
 
   

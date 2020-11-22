@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { LoginService } from 'src/app/services/login.service';
 import { AlertController } from '@ionic/angular';
-import { Placeholder } from '@angular/compiler/src/i18n/i18n_ast';
+
 import { StudentModel } from 'src/app/models/student.model';
 import { StudentsService } from 'src/app/services/students.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { strict } from 'assert';
-import { stringify } from 'querystring';
+;
 
 @Component({
   selector: 'app-outpass-studentside',
@@ -26,17 +25,17 @@ export class OutpassStudentsidePage implements OnInit {
   constructor( private barcodeScanner: BarcodeScanner, private studentService: StudentsService, private alertController: AlertController, private db: AngularFirestore) { }
 
   ngOnInit() {
-    this.db.collection('students').doc<StudentModel>(this.studentService.getuserid()).valueChanges().subscribe(student=>{
+    // this.db.collection('students').doc<StudentModel>(this.studentService.getuserid()).valueChanges().subscribe(student=>{
       
       
-      this.student_name = student.student_name
-      this.student_id = student.student_id
-      this.student_outstatus = student.student_outstatus
+    //   this.student_name = student.student_name
+    //   this.student_id = student.student_id
+    //   this.student_outstatus = student.student_outstatus
 
 
       
 
-    })
+    // })
   }
 
   GenerateQRCodeOutpass() {

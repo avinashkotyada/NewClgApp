@@ -20,15 +20,18 @@ export class SettingsPage implements OnInit {
   constructor(private db :AngularFirestore,private renderer : Renderer2,private studentService :StudentsService) { }
 
   ngOnInit() {
-    this.db.collection('students').doc<StudentModel>(this.studentService.getuserid()).valueChanges().subscribe(student=>{
+    this.studentService.getuserid().subscribe(student_id =>{
+      this.db.collection('students').doc<StudentModel>(student_id).valueChanges().subscribe(student=>{
       
-      this.student_photo = student.student_photo
-      this.student_name = student.student_name
-      this.student_id = student.student_id
-
-      
+        this.student_photo = student.student_photo
+        this.student_name = student.student_name
+        this.student_id = student.student_id
+  
+        
+      })
+  
     })
-
+  
   }
   onClick(event){
     if(event.detail.checked){

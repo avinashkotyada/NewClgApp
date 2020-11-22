@@ -31,15 +31,20 @@ export class ProfilePage implements OnInit {
     { }
   
 
+
   ngOnInit() {
-    this.db.collection('students').doc<StudentModel>(this.studentService.getuserid()).valueChanges().subscribe(student=>{
+    this.studentService.getuserid().subscribe(student_id=>{
+      this.db.collection('students').doc<StudentModel>(student_id).valueChanges().subscribe(student=>{
           
-      this.student_photo = student.student_photo
-      this.student_name = student.student_name
-      this.student_id = student.student_id
-      this.student_phoneNumber = student.student_phoneNumber
-      this.student_email = student.student_email
+        this.student_photo = student.student_photo
+        this.student_name = student.student_name
+        this.student_id = student.student_id
+        this.student_phoneNumber = student.student_phoneNumber
+        this.student_email = student.student_email
+      })
+
     })
+    
     
     
 
