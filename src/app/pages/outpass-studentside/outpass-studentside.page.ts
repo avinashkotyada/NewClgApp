@@ -3,6 +3,11 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { LoginService } from 'src/app/services/login.service';
 import { AlertController } from '@ionic/angular';
 import { Placeholder } from '@angular/compiler/src/i18n/i18n_ast';
+import { StudentModel } from 'src/app/models/student.model';
+import { StudentsService } from 'src/app/services/students.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { strict } from 'assert';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-outpass-studentside',
@@ -11,16 +16,32 @@ import { Placeholder } from '@angular/compiler/src/i18n/i18n_ast';
 })
 export class OutpassStudentsidePage implements OnInit {
   Purpose_Outing='';
+  PhoneNo_Outing='';
+  
+  student_name : string;
+  student_id : string;
+  student_outstatus:number;
 
 
-  constructor( private barcodeScanner: BarcodeScanner, private loginService: LoginService, private alertController: AlertController) { }
+  constructor( private barcodeScanner: BarcodeScanner, private studentService: StudentsService, private alertController: AlertController, private db: AngularFirestore) { }
 
   ngOnInit() {
+    this.db.collection('students').doc<StudentModel>(this.studentService.getuserid()).valueChanges().subscribe(student=>{
+      
+      
+      this.student_name = student.student_name
+      this.student_id = student.student_id
+      this.student_outstatus = student.student_outstatus
+
+
+      
+
+    })
   }
 
   GenerateQRCodeOutpass() {
 
-    const encodeData = this.loginService.getUserId()+'_' + '_' + this.Purpose_Outing + '_' + '0';
+    const encodeData = this.student_id+'_'+this.student_name+'_'+this.PhoneNo_Outing+'_'+this.Purpose_Outing+'_'+this.student_outstatus.toString();
 
     this.barcodeScanner.encode(this.barcodeScanner.Encode.TEXT_TYPE,encodeData).then((encodedData) => {
 

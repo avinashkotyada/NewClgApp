@@ -102,7 +102,8 @@ export class LoginPage implements OnInit {
             student_name: user.displayName,
             student_phoneNumber: user.phoneNumber,
             student_id: student_id,
-            student_email: user.email
+            student_email: user.email,
+            student_outstatus: 0
 
           }
 

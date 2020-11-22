@@ -25,6 +25,8 @@ export class SettingsPage implements OnInit {
       this.student_photo = student.student_photo
       this.student_name = student.student_name
       this.student_id = student.student_id
+
+      
     })
 
   }
