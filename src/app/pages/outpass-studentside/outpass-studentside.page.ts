@@ -20,7 +20,7 @@ export class OutpassStudentsidePage implements OnInit {
 
   GenerateQRCodeOutpass() {
 
-    const encodeData = this.loginService.getUserId()+'_' + this.loginService.getPhoneNo() + '_' + this.Purpose_Outing + '_' + '0';
+    const encodeData = this.loginService.getUserId()+'_' + '_' + this.Purpose_Outing + '_' + '0';
 
     this.barcodeScanner.encode(this.barcodeScanner.Encode.TEXT_TYPE,encodeData).then((encodedData) => {
 
