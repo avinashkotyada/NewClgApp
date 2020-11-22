@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import firebase from 'firebase/app';
-import { AngularFireAuth } from "@angular/fire/auth";
+import { AngularFirestore } from '@angular/fire/firestore';
+import { StudentModel } from '../models/student.model';
 
 
 @Injectable({
@@ -9,44 +9,30 @@ import { AngularFireAuth } from "@angular/fire/auth";
 export class LoginService {
 
   private UserisLoggedIn = false
-  private userid : string
-  private PhoneNo: string
+  private userid: string
 
 
-  getloginstatus(){
+  getloginstatus() {
     return this.UserisLoggedIn
   }
-  getUserId(){
+  getUserId() {
     return this.userid;
 
   }
-  setUserId(student_id : string){
+  setUserId(student_id: string) {
     this.userid = student_id;
-    
+
   }
 
-  getPhoneNo(){
-    return this.PhoneNo;
-  }
 
-  setPhoneNo(PhoneNovar : string){
-    this.PhoneNo = PhoneNovar
-  }
-
-  changeloginstatus(){
+  changeloginstatus() {
     this.UserisLoggedIn = !this.UserisLoggedIn
   }
+  
 
-  constructor(private afAuth: AngularFireAuth) { }
-  async googleSignin() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    const credential = await this.afAuth.signInWithPopup(provider);
-    console.log(credential.user.displayName,credential.user.email,credential.user.phoneNumber);
-  }
-  async signOut() {
-    await this.afAuth.signOut();
-    
-  }
-  
-  
+  constructor(private db : AngularFirestore) { }
+ 
+
+
+
 }

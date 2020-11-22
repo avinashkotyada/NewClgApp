@@ -5,6 +5,7 @@
         ><ion-icon slot="icon-only" name="close"></ion-icon
       ></ion-button>
     </ion-buttons>
+    <ion-title>Issuing Book</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="addbook()"
         ><ion-icon slot="icon-only" name="checkmark"></ion-icon
@@ -13,29 +14,23 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
-
-    <h3>{{ student_id }}</h3>
-    <h3>{{ Student.student_name}}</h3>
-    <ion-item>
-      <ion-label position="floating">Book Name</ion-label>
-      <ion-input #bookname ></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position='floating'>Current Timestamp</ion-label>
-      <ion-textarea disabled value='{{time}}'></ion-textarea>
-      <!-- <ion-label>DD/MM/YYYY</ion-label>
-      <ion-datetime #takendate
-        displayFormat="DD/MM/YYYY"
-        placeholder="Select Date"
-      ></ion-datetime> -->
-    </ion-item>
-    <ion-item>
-      <ion-label position='floating'>Select No of Days</ion-label>
-      <ion-select #noofdays>
-        <ion-select-option *ngFor="let number of numbers">{{
-          number
-        }}</ion-select-option>
-      </ion-select>
-    </ion-item>
-
+  
+  <h3>{{ student_id }}</h3>
+  <h3>{{ currentStudent_name }}</h3>
+  <ion-item>
+    <ion-label position="floating">Book Name</ion-label>
+    <ion-input #bookname></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Current Timestamp</ion-label>
+    <ion-textarea disabled value="{{ time }}"></ion-textarea>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Select No of Days</ion-label>
+    <ion-select #noofdays>
+      <ion-select-option *ngFor="let number of numbers">{{
+        number
+      }}</ion-select-option>
+    </ion-select>
+  </ion-item>
 </ion-content>

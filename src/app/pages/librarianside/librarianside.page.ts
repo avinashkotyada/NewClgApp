@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { IonSlides, LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { LibrarystudentinfoComponent } from 'src/app/components/librarystudentinfo/librarystudentinfo.component';
 import { StudentModel } from 'src/app/models/student.model';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx'
 import { IssuingbookComponent } from 'src/app/components/issuingbook/issuingbook.component';
+import { Book, BookHistory, BookHistorywithid } from 'src/app/models/bookhistory.model';
+
 
 @Component({
   selector: 'app-librarianside',
@@ -13,42 +15,48 @@ import { IssuingbookComponent } from 'src/app/components/issuingbook/issuingbook
 })
 export class LibrariansidePage implements OnInit {
   students: StudentModel[];
-  ScannedData: string;
   dummyStudents: StudentModel[]
-  @ViewChild('slides') Slides: IonSlides
-  Segment = 0
+  books: Book[];
+  dummybooks: Book[]
+  pendings: BookHistorywithid[]
+
 
   constructor(private loadingController: LoadingController, private toastController: ToastController, private db: AngularFirestore, private modalController: ModalController, private barcodescanner: BarcodeScanner) { }
-  slideOpts = {
 
-    initialSlide: 0,
-    speed: 400,
-
-  };
   ngOnInit() {
-    console.log(new Date().getTime())
 
-    const loading = this.loadingController.create({
-      message: 'Please wait...',
-
-    }).then(p => {
-
-
-      p.present()
-      this.db.collection<StudentModel>('students').snapshotChanges().subscribe(students => {
-        this.students = []
-        students.forEach(student => {
-          this.students.push(student.payload.doc.data())
-        })
-        this.dummyStudents = this.students
-        p.dismiss()
+    this.db.collection<StudentModel>('students').snapshotChanges().subscribe(students => {
+      this.students = []
+      students.forEach(student => {
+        this.students.push(student.payload.doc.data())
       })
+      this.dummyStudents = this.students
+
     })
+
+    this.db.collection<Book>('books').snapshotChanges().subscribe(books => {
+      this.books = []
+      books.forEach(book => {
+        this.books.push(book.payload.doc.data())
+      })
+      this.dummybooks = this.books
+
+    })
+
+
+    this.db.collection<BookHistory>('pendings').snapshotChanges().subscribe(pendings => {
+      this.pendings = []
+      pendings.forEach(pending => {
+        this.pendings.push({ ...pending.payload.doc.data(), id: pending.payload.doc.id })
+      })
+
+    })
+
   }
 
 
-  filterStudents(evt: any) {
-    const searchTerm = evt.detail.value;
+  filterStudents(event: any) {
+    const searchTerm = event.detail.value;
     this.dummyStudents = this.students
 
     if (!searchTerm) {
@@ -60,16 +68,25 @@ export class LibrariansidePage implements OnInit {
         return (currentStudent.student_name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 || currentStudent.student_id.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
       }
     });
+  }
 
+  filterBooks(event: any) {
+    const searchTerm = event.detail.value;
+    this.dummybooks = this.books
 
+    if (!searchTerm) {
+      return;
+    }
 
+    this.dummybooks = this.dummybooks.filter(book => {
+      if (book.book_name && searchTerm) {
+        return (book.book_name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 || book.author.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
+      }
+    });
 
   }
 
-
-
-
-  async  LibraryStudentInfoModal(student_id: string) {
+  async LibraryStudentInfoModal(student_id: string) {
     const modal = await this.modalController.create({
       component: LibrarystudentinfoComponent,
       componentProps: {
@@ -80,21 +97,8 @@ export class LibrariansidePage implements OnInit {
   }
 
 
-  slidechange() {
-    this.Slides.getActiveIndex().then((index: number) => {
-      this.Segment = index
-
-    }
-    )
-
-
-  }
-
-  segmentchange(event: any) {
-
-    this.Slides.slideTo(event.detail.value)
-  }
   scanBarcode() {
+
     const time = new Date().getTime()
 
     const options: BarcodeScannerOptions = {
@@ -102,7 +106,7 @@ export class LibrariansidePage implements OnInit {
       showFlipCameraButton: true,
       showTorchButton: true,
       torchOn: false,
-      prompt: 'Place a barcode inside the scan area',
+      prompt: 'Place a QRcode inside the scan area',
       resultDisplayDuration: 500,
       formats: 'EAN_13,EAN_8,QR_CODE,PDF_417',
       orientation: 'portrait',
@@ -111,23 +115,18 @@ export class LibrariansidePage implements OnInit {
     this.barcodescanner.scan(options).then(barcodeData => {
 
 
-      this.ScannedData = barcodeData.text;
-
-
-      const student_id = this.ScannedData.split('/')[0]
-      const a = time - parseInt(this.ScannedData.split('/')[1])
+      const ScannedData = barcodeData.text;
+      const student_id = ScannedData.split('/')[0]
+      const a = time - parseInt(ScannedData.split('/')[1])
       if (a > 30000) {
 
         const toast = this.toastController.create({
-          message: "QrCode Expired it only lasts for 30secs",
+          message: "QRcode Expired ,it only lasts for 30secs",
           duration: 1200
         }).then(
           p => p.present()
         )
-
-
         return
-
       }
 
       this.db.collection('students').doc(student_id).snapshotChanges().subscribe(
@@ -166,10 +165,12 @@ export class LibrariansidePage implements OnInit {
     }).catch(err => {
       console.log('Error', err);
     });
-  } 
-
-
+  }
   
+
+
+
+
 
 
 

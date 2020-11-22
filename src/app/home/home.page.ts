@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
@@ -12,49 +13,56 @@ import { StudentsService } from '../services/students.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  student_photo : string
+  student_name : string
+  student_id : string
 
-  profile1 : StudentModel;
-  sub :Subscription;
-  current_student_id : string;
-  constructor(private alertController : AlertController, private loginService : LoginService, private router : Router,private studentService :StudentsService) {}
+  
+ 
+  constructor(private db : AngularFirestore,private alertController : AlertController, private loginService : LoginService, private router : Router,private studentService :StudentsService) {}
 
 
- async onLogout(){
+//  async onLogout(){
 
-  const alert = await this.alertController.create({
+//   const alert = await this.alertController.create({
 
-    header: 'Confirm Logout',
-    message: 'Are you sure, do you want logout?',
-    buttons: [
-      {
-        text: 'Cancel',
-        role: 'cancel',
-        handler: (blah) => {
-          console.log('Confirm Cancel: blah');
-        }
-      }, {
-        text: 'Logout',
-        handler: () => {
-          this.loginService.signOut();
-          this.loginService.changeloginstatus()
-          this.router.navigateByUrl('/login')
+//     header: 'Confirm Logout',
+//     message: 'Are you sure, do you want logout?',
+//     buttons: [
+//       {
+//         text: 'Cancel',
+//         role: 'cancel',
+//         handler: (blah) => {
+//           console.log('Confirm Cancel: blah');
+//         }
+//       }, {
+//         text: 'Logout',
+//         handler: () => {
+//           this.loginService.signOut();
+//           this.loginService.changeloginstatus()
+//           this.router.navigateByUrl('/login')
          
 
-        }
-      }
-    ]
-  });
+//         }
+//       }
+//     ]
+//   });
 
-  await alert.present();
+//   await alert.present();
 
 
 
-  }
+//   }
   ngOnInit(){
-    this.current_student_id =this.loginService.getUserId()
-    this.sub = this.studentService.getallstudents().subscribe(data=>
-      this.profile1 = data.filter(p=>p.student_id === this.current_student_id)[0]);
+    this.db.collection('students').doc<StudentModel>(this.studentService.getuserid()).valueChanges().subscribe(student=>{
+      
+      this.student_photo = student.student_photo
+      this.student_name = student.student_name
+      this.student_id = student.student_id
     
+    
+    })
   }
+
 
 }

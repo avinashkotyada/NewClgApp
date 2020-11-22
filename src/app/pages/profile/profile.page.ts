@@ -6,6 +6,7 @@ import { StudentModel } from 'src/app/models/student.model';
 import { StudentsService } from 'src/app/services/students.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { LoginService } from 'src/app/services/login.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 
 @Component({
@@ -13,67 +14,50 @@ import { LoginService } from 'src/app/services/login.service';
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })
-export class ProfilePage implements OnInit,OnDestroy {
-
-  form : FormGroup;
-  profile1 : StudentModel;
-  profileSub :Subscription;
-  current_student_id : string;
+export class ProfilePage implements OnInit {
   
-  
-  
-  
+  student_photo : string
+  student_name : string
+  student_id : string
+  student_phoneNumber : number
+  student_email : string
   
   constructor(private studentService : StudentsService,
     private actionSheetController : ActionSheetController,
     private toastController :ToastController,
     private camera : Camera,
-    private loginService : LoginService
+    private db : AngularFirestore
     ) 
     { }
+  
 
   ngOnInit() {
-    this.current_student_id = this.loginService.getUserId();
-    this.profileSub = this.studentService.getstudentbyid(this.current_student_id).subscribe(profile =>{
-      this.profile1 = profile;
-     
-      
-      this.form = new FormGroup({
-        name : new FormControl(this.profile1.student_name,{
-          updateOn : 'change',
-          validators : [Validators.required]
-        }),
-        emailid :  new FormControl({value:this.profile1.student_email,disabled :true},{
-          updateOn : 'change',
-          validators : [Validators.required]
-        }),
-        entry_no : new FormControl({value:this.profile1.student_id,disabled :true},{
-          updateOn : 'change',
-          validators : [Validators.required]
-        }),
-        photo : new FormControl(this.profile1.student_photo,{
-          updateOn : 'change',
-          validators  : [Validators.required]
-  
-        })
-  
-  
-  
-      });
-
+    this.db.collection('students').doc<StudentModel>(this.studentService.getuserid()).valueChanges().subscribe(student=>{
+          
+      this.student_photo = student.student_photo
+      this.student_name = student.student_name
+      this.student_id = student.student_id
+      this.student_phoneNumber = student.student_phoneNumber
+      this.student_email = student.student_email
     })
+    
+    
 
     
   }
+
+
+
   getPhoto(){
     this.camera.getPicture({
       sourceType : this.camera.PictureSourceType.PHOTOLIBRARY,
       destinationType : this.camera.DestinationType.DATA_URL,
     }).then((res)=>
       {
-        this.form.get('photo').setValue('data:image/jpeg;base64,'+res)
+         this.student_photo= 'data:image/jpeg;base64,'+res
       })
-    this.form.markAsDirty();
+   
+  }
 
     
       
@@ -82,17 +66,11 @@ export class ProfilePage implements OnInit,OnDestroy {
     
     
     
-  }
+  
   
   onSubmit(){
-    //console.log(this.form.value);
-    this.studentService.updateDataByIndex(this.form.value.name,this.profile1.student_email,this.profile1.student_id,this.form.value.photo);
-    
-  
-    
-    
+    this.studentService.updateCurrentUser(this.student_photo,this.student_phoneNumber)
     this.presentToast();
-    this.form.markAsPristine();
   
     
   }
@@ -112,7 +90,7 @@ export class ProfilePage implements OnInit,OnDestroy {
         role: 'destructive',
         icon: 'trash',
         handler: () => {
-          this.form.get('photo').setValue('https://img.favpng.com/5/1/21/computer-icons-user-profile-avatar-female-png-favpng-cqykKc0Hpkh65ueWt6Nh2KFvS.jpg');
+          this.student_photo= 'https://img.favpng.com/5/1/21/computer-icons-user-profile-avatar-female-png-favpng-cqykKc0Hpkh65ueWt6Nh2KFvS.jpg'
         }
       }, {
         text: 'Choose Photo',
@@ -124,11 +102,6 @@ export class ProfilePage implements OnInit,OnDestroy {
       }]
     });
     await actionSheet.present();
-  }
-  ngOnDestroy(){
-    if(this.profileSub){
-      this.profileSub.unsubscribe();
-    }
   }
 
 }

@@ -38,6 +38,10 @@ const routes: Routes = [
   {
     path: 'outpass-studentside',
     loadChildren: () => import('../pages/outpass-studentside/outpass-studentside.module').then( m => m.OutpassStudentsidePageModule)
+  },
+  {
+    path: 'librarystudentside',
+    loadChildren: () => import('../pages/librarystudentside/librarystudentside.module').then( m => m.LibrarystudentsidePageModule)
   }
 ];
 

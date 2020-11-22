@@ -16,38 +16,31 @@ export class LibrarystudentinfoComponent implements OnInit {
   currentStudent: StudentModel
   currentStudent_name: string
   currentStudent_photo: string
-
   student_history: BookHistorywithid[]
-  constructor(private toastctrl : ToastController, private loadingController: LoadingController, private modalCtrl: ModalController, private alertController: AlertController, private db: AngularFirestore) { }
+  constructor(private toastctrl: ToastController, private loadingController: LoadingController, private modalCtrl: ModalController, private alertController: AlertController, private db: AngularFirestore) { }
 
   ngOnInit() {
 
 
-    const loading = this.loadingController.create({
-
-    }).then(p => {
-      p.present()
-
-      this.db.collection('students').doc<StudentModel>(this.student_id).valueChanges().subscribe(student => {
-        this.currentStudent = student
-        this.currentStudent_name = this.currentStudent.student_name
-        this.currentStudent_photo = this.currentStudent.student_photo
-      })
-
-      this.db.collection('bookhistory').doc(this.student_id).collection<BookHistory>('link', q=> q.orderBy('takenin_date', )).snapshotChanges().subscribe(
-        total_history => {
-          this.student_history = []
-          total_history.forEach(single_history => {
-            const data = single_history.payload.doc.data();
-            const id = single_history.payload.doc.id;
-            this.student_history.push({ ...data, id: id })
-          }
-          )
-        }
-      )
-
-      p.dismiss()
+    this.db.collection('students').doc<StudentModel>(this.student_id).valueChanges().subscribe(student => {
+      this.currentStudent = student
+      this.currentStudent_name = this.currentStudent.student_name
+      this.currentStudent_photo = this.currentStudent.student_photo
     })
+
+    this.db.collection('bookhistory').doc(this.student_id).collection<BookHistory>('link', q => q.orderBy('takenin_date')).snapshotChanges().subscribe(
+      total_history => {
+        this.student_history = []
+        total_history.forEach(single_history => {
+          const data = single_history.payload.doc.data();
+          const id = single_history.payload.doc.id;
+          this.student_history.push({ ...data, id: id })
+        }
+        )
+      }
+    )
+
+
   }
 
   dismissModal() {
@@ -58,10 +51,10 @@ export class LibrarystudentinfoComponent implements OnInit {
     });
   }
 
-  
 
-  async booksubmit(status: string, id: string) {
-   const alert = await this.alertController.create({
+
+  async booksubmit(id: string) {
+    const alert = await this.alertController.create({
 
       header: 'Confirm Submit',
       message: 'is he going to submit this book',
@@ -76,17 +69,13 @@ export class LibrarystudentinfoComponent implements OnInit {
           text: 'Submit',
           handler: () => {
             this.db.collection('bookhistory').doc(this.student_id).collection('link').doc(id).update({
-              submit_date : new Date().getTime(),
+              submit_date: new Date().getTime(),
               status: 'submitted'
-            }).then(p=> {
+            })
 
-            console.log("book submitted")
+            this.db.collection('pendings').doc(id).delete()
 
-
-              
-            }
-             
-            )
+            
 
           }
         }
@@ -98,13 +87,6 @@ export class LibrarystudentinfoComponent implements OnInit {
 
   }
 
-  ondelete(id: string) {
-
-    this.db.collection('bookhistory').doc(this.student_id).collection('link').doc(id).delete()
-
-
-
-  }
 
 
 

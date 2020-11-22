@@ -15,6 +15,10 @@ import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { LibrarystudentinfoComponent } from './components/librarystudentinfo/librarystudentinfo.component';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { IssuingbookComponent } from './components/issuingbook/issuingbook.component';
+import { SuperTabsModule} from '@ionic-super-tabs/angular'
+import {  AngularFireAuthModule } from '@angular/fire/auth';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAMK-eYvpXNnSYgehQwyrWwaB9z1DXapSQ",
@@ -30,14 +34,17 @@ const firebaseConfig = {
 @NgModule({
   declarations: [AppComponent,LibrarystudentinfoComponent,IssuingbookComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,AngularFireModule.initializeApp(firebaseConfig),AngularFirestoreModule],
+  imports: [BrowserModule,SuperTabsModule.forRoot(), IonicModule.forRoot(), AppRoutingModule,AngularFireModule.initializeApp(firebaseConfig),AngularFirestoreModule,AngularFireAuthModule
+    
+  ],
   providers: [
     StatusBar,
     SplashScreen,
     BarcodeScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     
-    Camera
+    Camera,
+    GooglePlus
    
     
     

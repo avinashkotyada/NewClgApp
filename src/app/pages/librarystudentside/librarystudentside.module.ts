@@ -4,21 +4,18 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LibrariansidePageRoutingModule } from './librarianside-routing.module';
+import { LibrarystudentsidePageRoutingModule } from './librarystudentside-routing.module';
 
-import { LibrariansidePage } from './librarianside.page';
-
+import { LibrarystudentsidePage } from './librarystudentside.page';
 import { SuperTabsModule} from '@ionic-super-tabs/angular'
-
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LibrariansidePageRoutingModule,
-    SuperTabsModule
-  
+    SuperTabsModule,
+    LibrarystudentsidePageRoutingModule
   ],
-  declarations: [LibrariansidePage],
+  declarations: [LibrarystudentsidePage]
 })
-export class LibrariansidePageModule {}
+export class LibrarystudentsidePageModule {}

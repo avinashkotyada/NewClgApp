@@ -1,7 +1,6 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { ModalController } from '@ionic/angular';
-import { Subscription } from 'rxjs';
-import { ResetpasswordComponent } from 'src/app/components/resetpassword/resetpassword.component';
 import { StudentModel } from 'src/app/models/student.model';
 import { LoginService } from 'src/app/services/login.service';
 import { StudentsService } from 'src/app/services/students.service';
@@ -12,16 +11,21 @@ import { StudentsService } from 'src/app/services/students.service';
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage implements OnInit {
-  profile1 : StudentModel;
-  sub :Subscription;
-  current_student_id : string
+  student_photo : string
+  student_name : string
+  student_id : string
 
-  constructor(private renderer : Renderer2,private modalController : ModalController,private studentService :StudentsService,private loginService : LoginService) { }
+  
+
+  constructor(private db :AngularFirestore,private renderer : Renderer2,private studentService :StudentsService) { }
 
   ngOnInit() {
-    this.current_student_id = this.loginService.getUserId()
-    this.sub = this.studentService.getallstudents().subscribe(data=>
-      this.profile1 = data.filter(p=>p.student_id === this.current_student_id)[0]);
+    this.db.collection('students').doc<StudentModel>(this.studentService.getuserid()).valueChanges().subscribe(student=>{
+      
+      this.student_photo = student.student_photo
+      this.student_name = student.student_name
+      this.student_id = student.student_id
+    })
 
   }
   onClick(event){
@@ -34,12 +38,6 @@ export class SettingsPage implements OnInit {
     }
     
   }
-  async presentModal() {
-    const modal = await this.modalController.create({
-      component: ResetpasswordComponent,
-      cssClass: 'my-custom-class'
-    });
-    return await modal.present();
-  }
+  
 
 }
