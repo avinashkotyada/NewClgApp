@@ -17,6 +17,7 @@ export class LoginPage implements OnInit {
   student_id : string
   student_profileImage : string
   student : StudentModel
+  student_phoneno: string
   
 
 
@@ -28,7 +29,7 @@ export class LoginPage implements OnInit {
     this.student_email = '1299@gmail.com'
     this.student_id = "1299"
     this.student_profileImage  = "https://img.favpng.com/5/1/21/computer-icons-user-profile-avatar-female-png-favpng-cqykKc0Hpkh65ueWt6Nh2KFvS.jpg"
-    
+    this.student_phoneno = '9592215528'
   }
 
   async presentToast() {
@@ -63,6 +64,7 @@ export class LoginPage implements OnInit {
 
       this.presentToast()
       this.loginService.setUserId(this.student_id)
+      this.loginService.setPhoneNo(this.student_phoneno)
    
   }
 

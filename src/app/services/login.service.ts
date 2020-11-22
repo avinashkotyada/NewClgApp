@@ -10,6 +10,7 @@ export class LoginService {
 
   private UserisLoggedIn = false
   private userid : string
+  private PhoneNo: string
 
 
   getloginstatus(){
@@ -24,6 +25,13 @@ export class LoginService {
     
   }
 
+  getPhoneNo(){
+    return this.PhoneNo;
+  }
+
+  setPhoneNo(PhoneNovar : string){
+    this.PhoneNo = PhoneNovar
+  }
 
   changeloginstatus(){
     this.UserisLoggedIn = !this.UserisLoggedIn

@@ -27,12 +27,17 @@ const routes: Routes = [
         path : 'profile',
         loadChildren:()=>import('../pages/profile/profile.module').then(m=>m.ProfilePageModule)
       },
+
       
     ]
   },
   {
     path: 'librarianside',
     loadChildren: () => import('../pages/librarianside/librarianside.module').then( m => m.LibrariansidePageModule)
+  },
+  {
+    path: 'outpass-studentside',
+    loadChildren: () => import('../pages/outpass-studentside/outpass-studentside.module').then( m => m.OutpassStudentsidePageModule)
   }
 ];
 
