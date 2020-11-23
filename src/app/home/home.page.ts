@@ -51,7 +51,7 @@ export class HomePage {
           }else{
 
             this.af.signOut().then(()=>{
-              this.router.navigateByUrl('/login')
+              this.router.navigate(['/','login'],{replaceUrl : true})
             })
 
           }
@@ -69,16 +69,29 @@ export class HomePage {
 
   }
   ngOnInit(){
-    this.studentService.getuserid().subscribe(student_id => {
-      this.db.collection('students').doc<StudentModel>(student_id).valueChanges().subscribe(student=>{
+    this.af.onAuthStateChanged(user =>{
+      if(user){
+        const student_id= user.email.split('@')[0]
+        this.studentService.setUserid(student_id)
+        this.studentService.getuserid().subscribe(student_id => {
+          this.db.collection('students').doc<StudentModel>(student_id).valueChanges().subscribe(student=>{
+          
+            this.student_photo = student.student_photo
+            this.student_name = student.student_name
+            this.student_id = student.student_id
+          
+          
+          })
+        })
       
-        this.student_photo = student.student_photo
-        this.student_name = student.student_name
-        this.student_id = student.student_id
-      
-      
-      })
-    })
+      }else{
+        this.router.navigate(['/','welcome'],{replaceUrl : true})
+      }
+    }
+     
+    )
+    
+ 
   
   }
 

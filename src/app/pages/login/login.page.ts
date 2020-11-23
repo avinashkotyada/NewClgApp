@@ -8,7 +8,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { StudentsService } from 'src/app/services/students.service';
 import firebase from 'firebase'
 import { AngularFirestore } from '@angular/fire/firestore';
-import { asapScheduler } from 'rxjs';
+
 
 @Component({
   selector: 'app-login',
@@ -53,7 +53,7 @@ export class LoginPage implements OnInit {
               this.checkuseradd(user, dialog)
             }).catch(err => {
               console.log(`Error ${JSON.stringify(err)}`)
-              dialog.present()
+              dialog.dismiss()
             });
 
         }).catch(err => console.log(`Error ${JSON.stringify(err)}`));
@@ -92,7 +92,7 @@ export class LoginPage implements OnInit {
       student => {
         if (student.payload.exists) {
 
-          this.router.navigateByUrl('/home')
+          this.router.navigate(['/','home'], {replaceUrl : true})
           dialog.dismiss()
           this.presentToast()
 
@@ -108,7 +108,8 @@ export class LoginPage implements OnInit {
           }
 
           ).then(success => {
-            this.router.navigateByUrl('/home')
+          
+            this.router.navigate(['/','home'], {replaceUrl : true})
             dialog.dismiss()
             this.presentToast()
           }
@@ -120,7 +121,6 @@ export class LoginPage implements OnInit {
         }
       }
     )
-
 
   }
 

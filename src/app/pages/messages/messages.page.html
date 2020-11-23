@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Messages</ion-title>
+  </ion-toolbar>
+</ion-header>
+<super-tabs>
+<super-tabs-toolbar>
+  <super-tab-button>
+    <ion-label>RECENT</ion-label>
+  </super-tab-button>
+  <super-tab-button>
+    <ion-label>BUDDIES</ion-label>
+  </super-tab-button>
+</super-tabs-toolbar>
+<super-tabs-container>
+  <super-tab>
+    <ion-content>
+      
+    </ion-content>
+  </super-tab>
+  <super-tab>
+    <ion-content>
+      <ion-searchbar (ionChange)="filterStudents($event)"></ion-searchbar>
+        <ion-list>
+          <ion-item
+            *ngFor="let student of dummyStudents"
+            (click)="SendMessageModal(student.student_id)"
+          >
+            <ion-avatar slot="start">
+              <ion-img [src]="student.student_photo"></ion-img>
+            </ion-avatar>
+            <ion-label>{{student.student_name}}</ion-label>
+            <ion-chip color="primary">
+              <ion-label color="primary">{{student.student_id}}</ion-label>
+            </ion-chip>
+          </ion-item>
+        </ion-list>
+     
+    </ion-content>
+  </super-tab>
+</super-tabs-container>
+</super-tabs>

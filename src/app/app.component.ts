@@ -26,17 +26,6 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.af.onAuthStateChanged(user =>{
-        if(user){
-          const student_id= user.email.split('@')[0]
-          this.studentService.setUserid(student_id)
-          this.router.navigateByUrl('/home')
-        }else{
-          this.router.navigateByUrl('/welcome')
-        }
-      }
-       
-      )
       
       this.statusBar.styleDefault();
       this.splashScreen.hide();

@@ -7,7 +7,12 @@ const routes: Routes = [
   {
     path: '',
     component: NewsfeedPage
-  }
+  },{
+    path: 'messages',
+    loadChildren: () => import('../messages/messages.module').then( m => m.MessagesPageModule)
+  },
+
+  
 ];
 
 @NgModule({
