@@ -36,7 +36,7 @@ export class SendmessageComponent implements OnInit {
       this.currentStudent_name = this.currentStudent.student_name
       this.currentStudent_photo = this.currentStudent.student_photo
     })
-    this.db.collection('chats').doc(this.id).collection<MessageModel>(this.student_id).snapshotChanges().subscribe(messages =>
+    this.db.collection('chats').doc(this.id).collection<MessageModel>(this.student_id, q => q.orderBy('Timestamp')).snapshotChanges().subscribe(messages =>
       { this.chatRef=[]
         messages.forEach(message => {
         this.chatRef.push( message.payload.doc.data())
