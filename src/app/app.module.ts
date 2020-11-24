@@ -19,6 +19,7 @@ import { SuperTabsModule} from '@ionic-super-tabs/angular'
 import {  AngularFireAuthModule } from '@angular/fire/auth';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { SendmessageComponent } from './components/sendmessage/sendmessage.component';
+import { FormsModule } from '@angular/forms';
 
 
 const firebaseConfig = {
@@ -35,7 +36,7 @@ const firebaseConfig = {
 @NgModule({
   declarations: [AppComponent,LibrarystudentinfoComponent,IssuingbookComponent, SendmessageComponent],
   entryComponents: [],
-  imports: [BrowserModule,SuperTabsModule.forRoot(), IonicModule.forRoot(), AppRoutingModule,AngularFireModule.initializeApp(firebaseConfig),AngularFirestoreModule,AngularFireAuthModule
+  imports: [BrowserModule,SuperTabsModule.forRoot(), IonicModule.forRoot(), AppRoutingModule,AngularFireModule.initializeApp(firebaseConfig),AngularFirestoreModule,AngularFireAuthModule,FormsModule
     
   ],
   providers: [

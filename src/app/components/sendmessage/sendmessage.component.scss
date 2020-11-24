@@ -1,0 +1,13 @@
+.chat{
+    display: flex;
+    flex-direction: column;
+    .me{
+        position: relative;
+        align-self: end;
+
+    }
+    .you{
+        position: relative;
+        align-self: start;
+    }
+}

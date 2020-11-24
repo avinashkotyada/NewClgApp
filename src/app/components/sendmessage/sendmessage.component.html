@@ -16,15 +16,33 @@
     </ion-item>
   </ion-toolbar>
 </ion-header>
+<ion-content>
+  <div class="chat" *ngFor="let chat of chatRef | async">
+    <div class="me" *ngIf="id==chat.id">
+      <ion-chip color="primary">
+        <ion-label color="primary">{{chat.message}}</ion-label>
+      </ion-chip>
+    </div>
+    <div class="you" *ngIf="id!=chat.id">
+      <ion-chip color="danger">
+        <ion-label color="danger">{{chat.message}}</ion-label>
+      </ion-chip>
+
+    </div>
+
+  </div>
+  
+</ion-content>
 <ion-footer>
   <ion-toolbar>
     <ion-item>
-      <ion-input placeholder="Send Message"></ion-input>
+  
+      <ion-input #messagebar type="text" name="message" [(ngModel)]="message" placeholder="Send Message"></ion-input>
      </ion-item>
         
         <ion-buttons slot="end">
-          <ion-button 
-            ><ion-icon slot="icon-only" name="send"></ion-icon
+          <ion-button (click)="sendMessage()">
+            <ion-icon slot="icon-only" name="send"></ion-icon
           ></ion-button>
         </ion-buttons>
      
