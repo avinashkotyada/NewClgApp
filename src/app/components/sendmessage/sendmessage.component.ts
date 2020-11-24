@@ -17,38 +17,38 @@ export class SendmessageComponent implements OnInit {
   currentStudent: StudentModel
   currentStudent_name: string
   currentStudent_photo: string
-  message : string
-  id : string
-  chatRef : MessageModel[]
-  constructor(private studentService : StudentsService,private modalCtrl: ModalController,private db : AngularFirestore) {
+  message: string=""
+  id: string
+  chatRef: MessageModel[]
+  constructor(private studentService: StudentsService, private modalCtrl: ModalController, private db: AngularFirestore) {
 
-   }
+  }
 
-  ngOnInit(){
+  ngOnInit() {
 
-    this.studentService.getuserid().subscribe(id=>{
-      this.id =id
+    this.studentService.getuserid().subscribe(id => {
+      this.id = id
 
     })
-  
+
     this.db.collection('students').doc<StudentModel>(this.student_id).valueChanges().subscribe(student => {
       this.currentStudent = student
       this.currentStudent_name = this.currentStudent.student_name
       this.currentStudent_photo = this.currentStudent.student_photo
     })
-    this.db.collection('chats').doc(this.id).collection<MessageModel>(this.student_id, q => q.orderBy('Timestamp')).snapshotChanges().subscribe(messages =>
-      { this.chatRef=[]
-        messages.forEach(message => {
-        this.chatRef.push( message.payload.doc.data())
-        }
-
-     
-        
-        )
-
-        console.log(this.chatRef)
-        
+    this.db.collection('chats').doc(this.id).collection<MessageModel>(this.student_id, q => q.orderBy('Timestamp')).snapshotChanges().subscribe(messages => {
+      this.chatRef = []
+      messages.forEach(message => {
+        this.chatRef.push(message.payload.doc.data())
       }
+
+
+
+      )
+
+      console.log(this.chatRef)
+
+    }
 
     )
 
@@ -61,20 +61,37 @@ export class SendmessageComponent implements OnInit {
 
     });
   }
-  sendMessage(){
+  sendMessage() {
     const time = new Date().getTime()
-    this.db.collection('chats').doc(this.id).collection(this.student_id).add({
-      message : this.message,
-      check : "sender",
-      Timestamp : time
-    })
-    this.db.collection('chats').doc(this.student_id).collection(this.id).add({
-      message : this.message,
-      check : "receiver",
-      Timestamp : time
-    })
+    const mess = this.message
     this.message = ''
-  
+    this.db.collection('chats').doc(this.id).collection(this.student_id).add({
+      message: mess,
+      check: "sender",
+      Timestamp: time
+    }).then(() => {
+      this.db.collection('recent').doc(this.id).collection('link').doc(this.student_id).set({
+        message: mess,
+        check: "sender",
+        Timestamp: time
+      })
+
+    })
+
+
+    this.db.collection('chats').doc(this.student_id).collection(this.id).add({
+      message: mess,
+      check: "receiver",
+      Timestamp: time
+    }).then(() => {
+      this.db.collection('recent').doc(this.student_id).collection('link').doc(this.id).set({
+        message: mess,
+        check: "receiver",
+        Timestamp: time
+      })
+    })
+   
+
 
   }
 

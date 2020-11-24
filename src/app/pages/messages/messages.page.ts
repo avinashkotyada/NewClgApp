@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ModalController } from '@ionic/angular';
 import { SendmessageComponent } from 'src/app/components/sendmessage/sendmessage.component';
+import { MessageModel, RecentMessageModel } from 'src/app/models/message.model';
 import { StudentModel } from 'src/app/models/student.model';
+import { StudentsService } from 'src/app/services/students.service';
 
 @Component({
   selector: 'app-messages',
@@ -12,9 +14,16 @@ import { StudentModel } from 'src/app/models/student.model';
 export class MessagesPage implements OnInit {
   students: StudentModel[];
   dummyStudents: StudentModel[]
-  constructor(private db : AngularFirestore, private modalController: ModalController) { }
+  id: string
+  recents : RecentMessageModel[]
+  constructor(private studentService: StudentsService,private db : AngularFirestore, private modalController: ModalController) { }
 
   ngOnInit() {
+    
+    this.studentService.getuserid().subscribe(id => {
+      this.id = id
+
+    })
     this.db.collection<StudentModel>('students').snapshotChanges().subscribe(students => {
       this.students = []
       students.forEach(student => {
@@ -23,6 +32,19 @@ export class MessagesPage implements OnInit {
       this.dummyStudents = this.students
 
     })
+    console.log(this.id)
+    this.db.collection('recent').doc(this.id).collection<MessageModel>('link',q=> q.orderBy('Timestamp','desc')).snapshotChanges().subscribe(recents=>
+      { this.recents=[]
+        recents.forEach(recent=>{
+          this.recents.push({...recent.payload.doc.data(),ide : recent.payload.doc.id})
+        })
+        console.log(this.recents)
+      }
+
+
+      
+      )
+      
 
   }
 
