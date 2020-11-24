@@ -16,18 +16,13 @@
   <super-tab>
     <ion-content>
       <ion-list>
-        <ion-item
-          *ngFor="let recent of recents"
-          (click)="SendMessageModal(recent.ide)"
+        <div  *ngFor="let recent of recents"
         >
-          <!-- <ion-avatar slot="start">
-            <ion-img [src]="student.student_photo"></ion-img>
-          </ion-avatar> -->
-          <ion-label>{{recent.message}}</ion-label>
-          <ion-chip color="primary">
-            <ion-label color="primary">{{recent.ide}}</ion-label>
-          </ion-chip>
-        </ion-item>
+
+        <app-recentcard (click)="SendMessageModal(recent.ide)" [student_id]='recent.ide' [message]='recent.message'></app-recentcard>
+    
+      
+        </div>
       </ion-list>
       
     </ion-content>

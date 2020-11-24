@@ -20,6 +20,7 @@ import {  AngularFireAuthModule } from '@angular/fire/auth';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { SendmessageComponent } from './components/sendmessage/sendmessage.component';
 import { FormsModule } from '@angular/forms';
+import { RecentcardComponent } from './components/recentcard/recentcard.component';
 
 
 const firebaseConfig = {
@@ -34,7 +35,7 @@ const firebaseConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent,LibrarystudentinfoComponent,IssuingbookComponent, SendmessageComponent],
+  declarations: [AppComponent,LibrarystudentinfoComponent,IssuingbookComponent, SendmessageComponent,RecentcardComponent],
   entryComponents: [],
   imports: [BrowserModule,SuperTabsModule.forRoot(), IonicModule.forRoot(), AppRoutingModule,AngularFireModule.initializeApp(firebaseConfig),AngularFirestoreModule,AngularFireAuthModule,FormsModule
     
