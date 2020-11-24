@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { StudentModel } from 'src/app/models/student.model';
 import { StudentsService } from 'src/app/services/students.service';
 import * as firebase from 'firebase'
+import { MessageModel } from 'src/app/models/message.model';
 
 @Component({
   selector: 'app-sendmessage',
@@ -18,7 +19,7 @@ export class SendmessageComponent implements OnInit {
   currentStudent_photo: string
   message : string
   id : string
-  chatRef : any
+  chatRef : MessageModel[]
   constructor(private studentService : StudentsService,private modalCtrl: ModalController,private db : AngularFirestore) {
 
    }
@@ -35,7 +36,21 @@ export class SendmessageComponent implements OnInit {
       this.currentStudent_name = this.currentStudent.student_name
       this.currentStudent_photo = this.currentStudent.student_photo
     })
-    this.chatRef = this.db.collection('chats').doc(this.id).collection(this.student_id,ref=>ref.orderBy('Timestamp')).valueChanges()
+    this.db.collection('chats').doc(this.id).collection<MessageModel>(this.student_id).snapshotChanges().subscribe(messages =>
+      { this.chatRef=[]
+        messages.forEach(message => {
+        this.chatRef.push( message.payload.doc.data())
+        }
+
+     
+        
+        )
+
+        console.log(this.chatRef)
+        
+      }
+
+    )
 
   }
 
@@ -47,15 +62,16 @@ export class SendmessageComponent implements OnInit {
     });
   }
   sendMessage(){
+    const time = new Date().getTime()
     this.db.collection('chats').doc(this.id).collection(this.student_id).add({
       message : this.message,
-      id : this.id,
-      Timestamp : firebase.default.firestore.FieldValue.serverTimestamp()
+      check : "sender",
+      Timestamp : time
     })
     this.db.collection('chats').doc(this.student_id).collection(this.id).add({
       message : this.message,
-      id : this.student_id,
-      Timestamp : firebase.default.firestore.FieldValue.serverTimestamp()
+      check : "receiver",
+      Timestamp : time
     })
     this.message = ''
   
