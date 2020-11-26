@@ -21,6 +21,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { SendmessageComponent } from './components/sendmessage/sendmessage.component';
 import { FormsModule } from '@angular/forms';
 import { RecentcardComponent } from './components/recentcard/recentcard.component';
+import { AddpostComponent } from './components/addpost/addpost.component';
 
 
 const firebaseConfig = {
@@ -35,7 +36,7 @@ const firebaseConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent,LibrarystudentinfoComponent,IssuingbookComponent, SendmessageComponent,RecentcardComponent],
+  declarations: [AppComponent,LibrarystudentinfoComponent,IssuingbookComponent, SendmessageComponent,RecentcardComponent, AddpostComponent],
   entryComponents: [],
   imports: [BrowserModule,SuperTabsModule.forRoot(), IonicModule.forRoot(), AppRoutingModule,AngularFireModule.initializeApp(firebaseConfig),AngularFirestoreModule,AngularFireAuthModule,FormsModule
     

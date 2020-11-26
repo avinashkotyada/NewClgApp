@@ -74,7 +74,7 @@ export class LibrarystudentsidePage implements OnInit {
 
   }
   selectedFile :any
-  task: Promise<any>;
+  task
   
 
   percentage: Observable<number>;
@@ -87,11 +87,12 @@ export class LibrarystudentsidePage implements OnInit {
     // Reference to storage bucket
     const ref = this.fireStorage.ref(path);
   
-    this.task = this.fireStorage.upload(path,this.selectedFile).then(a=>{
+    this.task = this.fireStorage.upload(path,this.selectedFile).then(a => {a.ref.getDownloadURL().then(data=> console.log(data))})
+    // .then(a=>{
       
 
-      this.downloadURL=ref.getDownloadURL().toPromise()
-      console.log(this.downloadURL)
+    //   this.downloadURL=ref.getDownloadURL().toPromise()
+    //   console.log(this.downloadURL)
      
 
 
@@ -101,7 +102,7 @@ export class LibrarystudentsidePage implements OnInit {
       
 
 
-    })
+    // })
       
      
 

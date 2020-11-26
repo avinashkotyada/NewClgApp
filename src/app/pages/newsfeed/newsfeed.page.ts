@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { ModalController } from '@ionic/angular';
+import { AddpostComponent } from 'src/app/components/addpost/addpost.component';
+import { PostModel } from 'src/app/models/post.model';
 
 @Component({
   selector: 'app-newsfeed',
@@ -6,10 +10,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./newsfeed.page.scss'],
 })
 export class NewsfeedPage implements OnInit {
-
-  constructor() { }
+ postids : string[]
+  constructor(public modalController: ModalController,private db : AngularFirestore) { }
 
   ngOnInit() {
+    this.db.collection('posts').snapshotChanges().subscribe(posts => {
+      this.postids =[]
+      posts.forEach(post => {
+        this.postids.push(post.payload.doc.id)
+      })
+      console.log(this.postids)
+    })
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: AddpostComponent,
+      
+    });
+    return await modal.present();
   }
 
 }

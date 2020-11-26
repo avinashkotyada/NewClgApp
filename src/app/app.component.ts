@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnDestroy } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -12,7 +12,7 @@ import { StudentsService } from './services/students.service';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent   {
   constructor(
     private studentService : StudentsService,
     private router : Router,
