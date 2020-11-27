@@ -14,7 +14,7 @@ export class NewsfeedPage implements OnInit {
   constructor(public modalController: ModalController,private db : AngularFirestore) { }
 
   ngOnInit() {
-    this.db.collection('posts').snapshotChanges().subscribe(posts => {
+    this.db.collection('posts',q=> q.orderBy('Timestamp','desc')).snapshotChanges().subscribe(posts => {
       this.postids =[]
       posts.forEach(post => {
         this.postids.push(post.payload.doc.id)

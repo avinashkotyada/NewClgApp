@@ -12,11 +12,28 @@
     </ion-item>
 
     <ion-img [src]='post_image'></ion-img>
+    
+    <ion-item>
+      <ion-buttons *ngIf="!liked" slot="start">
+        <ion-button (click)='addlike()' >
+          <ion-icon name="heart-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-buttons> 
+     <ion-buttons *ngIf='liked' slot="start" >
+        <ion-button (click)='removelike()' >
+          <ion-icon name="heart" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-label>{{likesCount}} Likes</ion-label>
+     
+      <ion-label>{{post_caption}}</ion-label>
+      <ion-chip (click)='presentModal()' slot="end">
+        <ion-label>Comments</ion-label>
+      </ion-chip>
       
+    </ion-item>
 
-    <h2>
-      {{post_caption}}
-    </h2>
+   
   </ion-card-content>
 
 </ion-card>

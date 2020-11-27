@@ -22,6 +22,7 @@ import { SendmessageComponent } from './components/sendmessage/sendmessage.compo
 import { FormsModule } from '@angular/forms';
 import { RecentcardComponent } from './components/recentcard/recentcard.component';
 import { AddpostComponent } from './components/addpost/addpost.component';
+import { CommentsComponent } from './components/comments/comments.component';
 
 
 const firebaseConfig = {
@@ -36,7 +37,7 @@ const firebaseConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent,LibrarystudentinfoComponent,IssuingbookComponent, SendmessageComponent,RecentcardComponent, AddpostComponent],
+  declarations: [AppComponent,LibrarystudentinfoComponent,CommentsComponent, IssuingbookComponent, SendmessageComponent,RecentcardComponent, AddpostComponent],
   entryComponents: [],
   imports: [BrowserModule,SuperTabsModule.forRoot(), IonicModule.forRoot(), AppRoutingModule,AngularFireModule.initializeApp(firebaseConfig),AngularFirestoreModule,AngularFireAuthModule,FormsModule
     
