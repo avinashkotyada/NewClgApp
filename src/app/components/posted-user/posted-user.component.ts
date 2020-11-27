@@ -6,7 +6,6 @@ import { PostModel } from 'src/app/models/post.model';
 import { StudentModel } from 'src/app/models/student.model';
 
 import { StudentsService } from 'src/app/services/students.service';
-import { threadId } from 'worker_threads';
 import { CommentsComponent } from '../comments/comments.component';
 
 @Component({

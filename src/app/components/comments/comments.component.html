@@ -11,7 +11,7 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <app-recentcard  *ngFor="let comment of Comments"  [student_id]='student_id' [message]='comment.comment'></app-recentcard>
+    <app-recentcard  *ngFor="let comment of Comments"  [student_id]='comment.student_id' [message]='comment.comment'></app-recentcard>
    
   </ion-list>
    
