@@ -16,13 +16,12 @@
   <super-tab>
     <ion-content>
       <ion-list>
-        <div  *ngFor="let recent of recents"
-        >
-
-        <app-recentcard (click)="SendMessageModal(recent.ide)" [student_id]='recent.ide' [message]='recent.message'></app-recentcard>
+       
+        
+        <app-recentcard  *ngFor="let recent of recents" (click)="SendMessageModal(recent.ide)" [student_id]='recent.ide' [message]='recent.message'></app-recentcard>
     
       
-        </div>
+       
       </ion-list>
       
     </ion-content>

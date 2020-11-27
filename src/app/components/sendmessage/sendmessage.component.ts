@@ -13,7 +13,6 @@ import { MessageModel } from 'src/app/models/message.model';
 })
 export class SendmessageComponent implements OnInit {
   @Input() student_id: string;
-  @ViewChild("messagebar") messagebar
   currentStudent: StudentModel
   currentStudent_name: string
   currentStudent_photo: string

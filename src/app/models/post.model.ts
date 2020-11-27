@@ -3,3 +3,12 @@ export class PostModel{
 }
 }
 
+
+
+export class CommentModel{
+    constructor(public student_id : string,  public comment : string){
+}
+}
+
+
+
