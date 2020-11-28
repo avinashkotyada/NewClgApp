@@ -30,6 +30,7 @@
     "@ionic/angular": "^5.0.0",
     "cordova": "^10.0.0",
     "cordova-ios": "6.1.1",
+    "cordova-res": "^0.15.2",
     "firebase": "^8.1.1",
     "rxjs": "~6.5.5",
     "sharp": "^0.26.3",
