@@ -1,36 +1,36 @@
 
-
 <ion-content class="ion-padding">
 
-  <ion-grid>
     <ion-row>
       <ion-col size-lg=4 offset-lg=4>
-
-        <ion-img class="logo" src="assets/collegelogo.png"></ion-img>
-
-        <ion-item>
-            <ion-label position="floating">Email</ion-label>
+      
+<ion-card >
+      <ion-item>
+        <ion-icon color="tertiary" name="mail-outline" slot="start"> </ion-icon>
+    
+          <ion-label color="tertiary" position="floating">Entry number</ion-label>
             <ion-input type="text"> </ion-input>
           </ion-item>
         
           <ion-item>
-            <ion-label position="floating">Password</ion-label>
+            <ion-icon color="tertiary" name="lock-closed-outline" slot="start"> </ion-icon>
+            <ion-label color="tertiary" position="floating">Password</ion-label>
             <ion-input type="password"> </ion-input>
           </ion-item>
+          
         
-          <ion-button class="ion-margin-vertical" expand="block">Login</ion-button>
+          <ion-button color="tertiary" class="ion-margin-vertical" expand="block" shape="round">Login</ion-button>
+          <ion-button name="google" color='tertiary' (click)='clickongooglesignin()' 
+          shape="round" ><ion-icon name="logo-google" slot="start" > </ion-icon></ion-button
+           >
         
-          <p class="ion-text-center">or</p>
-        
-          <ion-button (click)='clickongooglesignin()' expand='block' fill="outline"
-            ><ion-icon name="logo-google" slot="start"> </ion-icon>Sign in with
-            Google</ion-button
-          >
+         
+          </ion-card>
         
 
       </ion-col>
     </ion-row>
-  </ion-grid>
+
 
 
 </ion-content>

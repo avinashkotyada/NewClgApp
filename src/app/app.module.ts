@@ -23,6 +23,7 @@ import { FormsModule } from '@angular/forms';
 import { RecentcardComponent } from './components/recentcard/recentcard.component';
 import { AddpostComponent } from './components/addpost/addpost.component';
 import { CommentsComponent } from './components/comments/comments.component';
+  
 
 
 const firebaseConfig = {

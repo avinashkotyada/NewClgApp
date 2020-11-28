@@ -109,7 +109,7 @@
         <ion-searchbar (ionChange)="filterBooks($event)"></ion-searchbar>
         <ion-item *ngFor="let book of dummybooks">
           <ion-label>{{book.book_name}}</ion-label>
-          <ion-chip><ion-label>{{book.author}}</ion-label></ion-chip>
+         <ion-chip><ion-label>{{book.author}}</ion-label></ion-chip>
         </ion-item>
       </ion-content>
     </super-tab>

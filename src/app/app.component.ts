@@ -13,6 +13,8 @@ import { StudentsService } from './services/students.service';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent   {
+   showSplash =true;
+  
   constructor(
     private studentService : StudentsService,
     private router : Router,
@@ -28,7 +30,7 @@ export class AppComponent   {
     this.platform.ready().then(() => {
       
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      this.splashScreen.show();
     });
   }
 }
