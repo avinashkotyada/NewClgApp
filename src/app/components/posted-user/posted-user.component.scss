@@ -1,0 +1,113 @@
+ion-card-content{
+    padding-right: 0% ;
+}
+ion-label{
+    padding-left: 0%;
+}
+ion-icon{
+    font-size: 25px;
+    
+}
+ion-button{
+    font-size: 20px;
+}
+ion-card-content{
+    ion-img{
+        padding-right: 4%;;
+    }
+}
+ion-card{
+    border-radius: 15px;
+    border-color : #008ddf;
+    
+}
+
+.avatar{
+    padding-right: 0%;
+}
+.post-caption{
+    font-size: 20px;
+    font-family: 'Times New Roman';
+    top : 0.4%;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    word-break: keep-all;
+   
+}
+h3{
+padding-left:4.5%;
+
+}
+ion-card-header{
+    ion-avatar{
+        padding-right: 0%;
+    }
+}
+.comment-icon{
+    padding-right:2% ;
+}
+.comment-count{
+    padding-right: 3%;
+}
+.social-share{
+    padding-right: 10%;
+}
+.ion-padding{
+    padding-right: 8%;
+}
+.post-image{
+    
+    align-items: center;
+    height: 300px;
+    width: auto;
+    max-height: 100%;
+    position: relative;
+
+    
+}
+.hover-in{
+    border:2px;
+}
+.user-id{
+    font-weight: normal;
+    
+
+}
+.fitin-line{
+   display: inline;
+    text-transform: uppercase;
+    font-size: 65% ;
+    font-family: 'Sans-serif';
+    object-fit: scale-down;
+    top: 30%;
+    
+}
+.profile-info{
+    align-items: center;
+}
+.student-name{
+    font-family: 'Georgia';
+    text-transform: lowercase ; 
+    padding-left: 4.5%;
+}
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+
+    }
+    to{
+        opacity: 1;
+        
+    }
+}
+
+
+
+.like-button{
+    animation-name: fadeIn;
+    animation-duration: 1s;
+    padding-right: 20%;
+
+}
+
+

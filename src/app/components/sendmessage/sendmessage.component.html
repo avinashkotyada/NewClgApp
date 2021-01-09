@@ -9,37 +9,40 @@
       <ion-avatar slot="start">
         <ion-img [src]="currentStudent_photo"></ion-img>
       </ion-avatar>
-      <ion-label>{{ currentStudent_name }}</ion-label>
+      <ion-label style="font-size: 15px ;"  class="student-name">{{ currentStudent_name }}</ion-label>
       <ion-chip color="primary">
-        <ion-label color="primary">{{ student_id }}</ion-label>
+        <ion-label  color="primary">{{ student_id }}</ion-label>
       </ion-chip>
     </ion-item>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content #content>
   <ion-list *ngFor="let chat of chatRef">
   <ion-item lines='none'>
-    <ion-chip slot='end' *ngIf="chat.check==='sender'">
-      <ion-label>{{chat.message}}</ion-label>
+    <ion-chip   color="primary" slot='end' *ngIf="chat.check==='sender'">
+      <ion-label color="dark"  style="word-wrap: break-word;" class="senders">{{chat.message}}</ion-label>
     </ion-chip>
-    <ion-chip slot='start' *ngIf="chat.check==='receiver'">
-      <ion-label>{{chat.message}}</ion-label>
+    <ion-chip color="tertiary" slot='start' *ngIf="chat.check==='receiver'">
+      <ion-label class="receivers" color="dark"  style="word-wrap: break-word;">{{chat.message}}</ion-label>
     </ion-chip>
   </ion-item>
 </ion-list>
 
  
 </ion-content>
-<ion-footer>
-  <ion-toolbar>
-    <ion-item>
-  
-      <ion-input #messagebar type="text" name="message" [(ngModel)]="message" placeholder="Send Message"></ion-input>
+<ion-footer >
+  <ion-toolbar >
+    <ion-item ><ion-buttons slot="start">
+      <ion-button>
+         <ion-icon slot="icon-only" name="document-attach-outline" ></ion-icon
+      ></ion-button></ion-buttons>
+     
+      <ion-input  #messagebar type="text" name="message" [(ngModel)]="message" placeholder="Type a message here" style="font-family: Georgia, 'Times New Roman', Times, serif;"></ion-input>
      </ion-item>
         
         <ion-buttons slot="end">
           <ion-button (click)="sendMessage()">
-            <ion-icon slot="icon-only" name="send"></ion-icon
+            <ion-icon slot="icon-only" name="paper-plane" color="success"></ion-icon
           ></ion-button>
         </ion-buttons>
      

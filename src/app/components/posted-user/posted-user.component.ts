@@ -1,12 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ModalController } from '@ionic/angular';
+import { ModalController , ActionSheetController } from '@ionic/angular';
 import { PostModel } from 'src/app/models/post.model';
+
 
 import { StudentModel } from 'src/app/models/student.model';
 
 import { StudentsService } from 'src/app/services/students.service';
 import { CommentsComponent } from '../comments/comments.component';
+import { Animation, AnimationController } from '@ionic/angular';
+import { from } from 'rxjs';
+import { Button } from 'protractor';
 
 @Component({
   selector: 'app-posted-user',
@@ -16,15 +20,21 @@ import { CommentsComponent } from '../comments/comments.component';
 export class PostedUserComponent implements OnInit {
 
   post_caption: string
-  post_image: string
+  post_image : string
   currentStudent_name: string
   currentStudent_photo: string
+  currentStudent_id  : string
   student_id: string
   liked : boolean
   likesCount : number
+  CommentsCount : number
+  anim : Animation
+  
 
   @Input() post_id: string
-  constructor(private db: AngularFirestore, private studentsService: StudentsService,private modalController : ModalController) { }
+  post: any;
+  constructor(public actionsheetctrl : ActionSheetController ,private animationCtrl: AnimationController,
+    private db: AngularFirestore, private studentsService: StudentsService,private modalController : ModalController) { }
 
   ngOnInit() {
 
@@ -37,6 +47,7 @@ export class PostedUserComponent implements OnInit {
 
             this.currentStudent_name = student.student_name
             this.currentStudent_photo = student.student_photo
+            this.currentStudent_id =student.student_id
 
           }
         )
@@ -52,6 +63,15 @@ export class PostedUserComponent implements OnInit {
 
       }
     )
+   
+
+    this.db.collection('comments').doc(this.post_id).collection('link').snapshotChanges().subscribe(
+      comments => {
+        this.CommentsCount= comments.length
+      
+
+      }
+    )
 
     this.studentsService.getuserid().subscribe(student_id => {
       this.student_id = student_id
@@ -63,14 +83,16 @@ export class PostedUserComponent implements OnInit {
         }
       )
     })
+  
 
 
    
 
-
-
   }
 
+   
+  
+  
   addlike() {
 
     this.db.collection('likes').doc(this.post_id).collection('link').doc(this.student_id).set({
@@ -85,6 +107,9 @@ export class PostedUserComponent implements OnInit {
 
 
   }
+
+
+
 
   async presentModal() {
     const modal = await this.modalController.create({

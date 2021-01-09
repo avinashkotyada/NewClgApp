@@ -1,58 +1,51 @@
 
-
-<ion-header>
-  <ion-toolbar>
-    <ion-title>outpass_studentside</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-
-
-<ion-content class='ion-padding'>
-  <div >
-  <ion-item>
-    <ion-label position='floating'>
-      Enter your purpose here
+<ion-toolbar color="medium">
+ <ion-buttons slot="start">
+  <ion-back-button [defaultHref]="['/','home']"></ion-back-button>
+</ion-buttons></ion-toolbar>
+ 
+<ion-content mode=md class='ion-padding'> 
+   <ion-title color="light"class="title-outpass" >Outpass</ion-title>
+  
+  <div ><ion-card class="card-in">
+  <ion-item><ion-icon class="reason" color="tertiary"  slot="start" name="text"></ion-icon>
+    <ion-label mode=md style="text-overflow: ellipsis;" class="reason-text"  position='floating'>
+      Purpose 
     </ion-label>
     <ion-input [(ngModel)]='Purpose_Outing'  >
 
     </ion-input>
   </ion-item>
 
-  <ion-item>
-    <ion-label position='floating'>
-      Enter your phone No here
+  <ion-item><ion-icon class="reason" color="tertiary"  slot="start" name="call-outline"></ion-icon>
+    <ion-label mode=md style="text-overflow: ellipsis;" class="reason-text" position='floating'>
+       Phone Number
     </ion-label>
     <ion-input [(ngModel)]='PhoneNo_Outing'  >
 
     </ion-input>
-  </ion-item>
+  </ion-item><p class="message-outpass">Come back soon......!</p></ion-card>
+  
+  <br>
+<br>
+<br>
+<br>
+<br>
 
-<ion-button>
-  Generate QR Code
+
+<ion-button  class="out-break" color="medium"> <ion-icon slot="start" name="scan"></ion-icon>
+   QR Code
 </ion-button>
 
-<ion-button (click)='LongBreakForm()'>
-  Apply for Break
+<ion-button  class="out-break" color="medium" (click)='LongBreakForm()'> <ion-icon slot="start" name="scan"></ion-icon>
+   long break
 </ion-button>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
+
+</div></ion-content>
 <br>
 
-<ion-list>
-  <ion-item>Wave Mall</ion-item>
-  <ion-item> Theka </ion-item>
-  <ion-item> Chai-Sutta </ion-item>
-</ion-list>
-</div>
 
-<div >
 
-</div>
-</ion-content>
+
+

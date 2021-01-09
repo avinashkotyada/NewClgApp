@@ -6,6 +6,7 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
+
 }
 
 #container strong {
@@ -14,7 +15,7 @@
 }
 
 #container p {
-  font-size: 16px;
+  font-size: 20px;
   line-height: 22px;
 
   color: #8c8c8c;
@@ -25,10 +26,36 @@
 #container a {
   text-decoration: none;
 }
-.profile_info{
-  text-align: center;
+
+.inbox-list{
+  background-color:#003f87 ;
+  };
+.md.profile_info{
+  top : 5%;}
+ 
+
+
+ion-menu{
+  padding-top: 40px;
 }
-ion-avatar{
-  height: 80px;
-  width: 80px;
+.menu-list{
+  padding-top: 15%;
+  padding-left: 2%;
 }
+
+ion-icon{
+  padding-right:5% ;
+}
+.college-logo{
+  height: 190px;
+  width: 100%;
+  padding-right: 20%;
+}
+ion-title{
+  font-size: 95%;
+  padding-top: 5%;
+}
+ion-note{
+  white-space: nowrap;
+}
+

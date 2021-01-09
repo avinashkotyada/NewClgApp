@@ -1,6 +1,9 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Messages</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="['/','home']"></ion-back-button>
+    </ion-buttons>
+    <ion-title >chats</ion-title>
   </ion-toolbar>
 </ion-header>
 <super-tabs>
@@ -9,7 +12,7 @@
     <ion-label>RECENT</ion-label>
   </super-tab-button>
   <super-tab-button>
-    <ion-label>BUDDIES</ion-label>
+    <ion-label>ACTIVE</ion-label>
   </super-tab-button>
 </super-tabs-toolbar>
 <super-tabs-container>
@@ -18,7 +21,7 @@
       <ion-list>
        
         
-        <app-recentcard  *ngFor="let recent of recents" (click)="SendMessageModal(recent.ide)" [student_id]='recent.ide' [message]='recent.message'></app-recentcard>
+        <app-recentcard class="recent-message" *ngFor="let recent of recents" (click)="SendMessageModal(recent.ide)" [student_id]='recent.ide' [message]='recent.message'></app-recentcard>
     
       
        
@@ -30,7 +33,7 @@
     <ion-content>
       <ion-searchbar (ionChange)="filterStudents($event)"></ion-searchbar>
         <ion-list>
-          <ion-item
+          <ion-item 
             *ngFor="let student of dummyStudents"
             (click)="SendMessageModal(student.student_id)"
           >

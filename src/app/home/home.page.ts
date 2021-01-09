@@ -85,7 +85,7 @@ export class HomePage {
         })
       
       }else{
-        this.router.navigate(['/','welcome'],{replaceUrl : true})
+        this.router.navigate(['/','login'],{replaceUrl : true})
       }
     }
      

@@ -73,6 +73,8 @@ export class AddpostComponent implements OnInit {
   takePicture() {
     this.camera.getPicture({
       quality: 100,
+      targetHeight : 500,
+      targetWidth : 800,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
