@@ -14,9 +14,6 @@ import { StudentsService } from './services/students.service';
 })
 export class AppComponent   {
   constructor(
-    private studentService : StudentsService,
-    private router : Router,
-    private af : AngularFireAuth,
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar

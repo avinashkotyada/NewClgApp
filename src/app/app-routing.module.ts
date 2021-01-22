@@ -8,7 +8,11 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./index/index.module').then( m => m.IndexPageModule)
+  },  {
+    path: 'trash',
+    loadChildren: () => import('./pages/trash/trash.module').then( m => m.TrashPageModule)
   },
+
 
 
   

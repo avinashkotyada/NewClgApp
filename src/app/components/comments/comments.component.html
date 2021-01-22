@@ -34,3 +34,41 @@
 
  
 </ion-footer>
+
+
+
+
+<!-- 
+
+  #include <iostream>
+  #include <cmath>
+  using namespace std;
+  // A bronze bar 3 m long with a cross-sectional area of 320 mm2 is
+  // placed between two rigid walls. At a temperature of -20 °C
+  // there is a gap of 2.5 mm as shown in the figure. Find the
+  // temperature at which the compressive stress in the bar will be
+  // 40Mpa . α =18x10^(-6)/°C, E = 80 GPa.
+    
+  int main() {
+      int intial_length = 3; // in metres
+      float gap = 2.5*pow(10,-3); // in metres
+      float E = 80*pow(10,9); // in N m^(-2)
+      float stress = 40*pow(10,6); // in N m^(-2)
+      int intial_temperature = -20; // in celcius
+      float α = 18*pow(10,-6); // per celcius
+      
+      // (l2-l2)=l1 α(t2-t1)
+      // t2 = t1 + (l2-l1)/(αl1)
+      //allow bar freely to increase length untill stress is developed
+      //at this point find out the temperature
+      
+      float intermidiate_temp = gap/(intial_length*α) + intial_temperature;
+      
+      //E= stress/(α(t2-t1))
+      //t2 = t1 + stress/(Eα)
+      // now stress is  developed 
+      
+      float final_temperature = (stress/(α*E))+ intermidiate_temp;
+        cout << "Final temperature = "<< final_temperature;
+        return 0;
+    } -->
