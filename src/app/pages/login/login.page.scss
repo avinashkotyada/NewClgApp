@@ -10,10 +10,37 @@
 }
 
 
+ion-card{
+    align-items: center;
+    padding: 5%;
+    margin: 15px;
+    top: 60%;
+    bottom: 40%;
+}
+
+
 ion-item{
     border-width: 2px;
-    background-color: black;
     border-top-left-radius:5px ;
     border-top-right-radius: 5px;
     margin-top: 5px;
+}
+ion-icon{
+    font-size: 25px;
+    padding-right: 0%;
+}
+ion-label{
+    padding-right:10px ;
+}
+ion-button{
+    width: 60%;
+    padding-left: 35%;
+}
+ion-icon{
+    padding-left: 2%;
+}
+ion-content {
+    --background :url('/assets/1.png')no-repeat center center / cover;
+
+
 }

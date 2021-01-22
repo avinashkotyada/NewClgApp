@@ -18,10 +18,6 @@ const routes: Routes = [
     loadChildren: () => import('../home/home.module').then( m => m.HomePageModule),
     // canActivate:[LoginGuard]
   },
-  {
-    path: 'welcome',
-    loadChildren: () => import('../pages/welcome/welcome.module').then( m => m.WelcomePageModule)
-  },
  
 ];
 

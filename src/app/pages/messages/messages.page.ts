@@ -15,6 +15,7 @@ export class MessagesPage implements OnInit {
   students: StudentModel[];
   dummyStudents: StudentModel[]
   id: string
+
   recents : RecentMessageModel[]
   constructor(private studentService: StudentsService,private db : AngularFirestore, private modalController: ModalController) { }
 
@@ -32,6 +33,8 @@ export class MessagesPage implements OnInit {
       this.dummyStudents = this.students
 
     })
+    
+    
     console.log(this.id)
     this.db.collection('recent').doc(this.id).collection<MessageModel>('link',q=> q.orderBy('Timestamp','desc')).snapshotChanges().subscribe(recents=>
       { this.recents=[]
@@ -63,9 +66,9 @@ export class MessagesPage implements OnInit {
         return (currentStudent.student_name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 || currentStudent.student_id.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
       }
     });
-  }
+    
 
-  
+  }
   async SendMessageModal(student_id: string) {
     const modal = await this.modalController.create({
       component: SendmessageComponent,

@@ -10,6 +10,7 @@ import { MessagesPage } from './messages.page';
 import { SuperTabsModule } from '@ionic-super-tabs/angular';
 import { RecentcardComponent } from 'src/app/components/recentcard/recentcard.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -17,6 +18,7 @@ import { RecentcardComponent } from 'src/app/components/recentcard/recentcard.co
     IonicModule,
     SuperTabsModule,
     MessagesPageRoutingModule
+
   ],
   declarations: [MessagesPage,RecentcardComponent]
 })

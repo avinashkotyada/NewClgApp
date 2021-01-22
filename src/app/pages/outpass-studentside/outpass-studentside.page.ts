@@ -54,12 +54,12 @@ export class OutpassStudentsidePage implements OnInit {
   async LongBreakForm() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
-      header: 'Prompt!',
+      header: 'Apply for a break',
       inputs: [
         {
           name: 'name1',
           type: 'text',
-          placeholder: 'Where are you going'
+          placeholder: 'Where you are going'
         },
         {
           name: 'name2',
@@ -74,7 +74,7 @@ export class OutpassStudentsidePage implements OnInit {
           name: 'name4',
           type: 'date',
           min: '2017-03-01',
-          max: '2018-01-12',
+          max: '2021-01-12',
           placeholder: 'From',
         },
         // input date without min nor max

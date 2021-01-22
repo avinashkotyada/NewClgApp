@@ -19,11 +19,13 @@ export class SendmessageComponent implements OnInit {
   message: string=""
   id: string
   chatRef: MessageModel[]
+  @ViewChild('content') private content : any;
   constructor(private studentService: StudentsService, private modalCtrl: ModalController, private db: AngularFirestore) {
 
   }
 
   ngOnInit() {
+    this.scrollToBottomOnInit();
 
     this.studentService.getuserid().subscribe(id => {
       this.id = id
@@ -52,6 +54,13 @@ export class SendmessageComponent implements OnInit {
     )
 
   }
+  scrollToBottomOnInit() {
+    setTimeout(() => {
+        if (this.content.scrollToBottom) {
+            this.content.scrollToBottom(10);
+        }
+    }, 500);
+}
 
   dismissModal() {
     // using the injected ModalController this page
@@ -61,6 +70,7 @@ export class SendmessageComponent implements OnInit {
     });
   }
   sendMessage() {
+    
     const time = new Date().getTime()
     const mess = this.message
     this.message = ''
@@ -68,6 +78,7 @@ export class SendmessageComponent implements OnInit {
       message: mess,
       check: "sender",
       Timestamp: time
+    
     }).then(() => {
       this.db.collection('recent').doc(this.id).collection('link').doc(this.student_id).set({
         message: mess,

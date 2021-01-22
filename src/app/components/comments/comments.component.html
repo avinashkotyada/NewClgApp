@@ -10,18 +10,17 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-list>
-    <app-recentcard  *ngFor="let comment of Comments"  [student_id]='comment.student_id' [message]='comment.comment'></app-recentcard>
+  <ion-list> 
+    <app-recentcard  *ngFor="let comment of Comments"  [student_id]='comment.student_id' [message]='comment.comment'>
+        </app-recentcard>   
+  </ion-list>   
    
-  </ion-list>
-   
-      
 </ion-content>
 <ion-footer>
   <ion-toolbar>
     <ion-item>
   
-      <ion-input  type="text" name="message" [(ngModel)]="Comment" placeholder="Send Message"></ion-input>
+      <ion-input  type="text" name="message" [(ngModel)]="Comment" placeholder="Add a comment"></ion-input>
      </ion-item>
         
         <ion-buttons slot="end">

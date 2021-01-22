@@ -42,8 +42,8 @@ export class CommentsComponent implements OnInit {
     this.db.collection('comments').doc(this.post_id).collection('link').add({
       Timestamp : new Date().getTime(),
       comment : comment,
-      student_id : this.student_id
-
+      student_id : this.student_id 
+     
     })
   }
 

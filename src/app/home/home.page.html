@@ -1,39 +1,45 @@
 <ion-menu contentId='home'>
   <ion-list id="inbox-list">
-     <ion-menu-toggle>
+    <ion-img class="college-logo" slot ="start" src="/assets/icon.png"  ></ion-img>
+     <ion-menu-toggle> 
       <ion-item lines="none" [routerLink]="['/','home','profile']" detail class="userInfo" button>
         
-        <div class="profile_image">
-          <ion-avatar><ion-img [src]="student_photo"></ion-img></ion-avatar>
+        <div mode=md class="profile_info">
+          <ion-title> {{student_name}}</ion-title>
+          <ion-note style="padding-left: 9%;">{{student_id}}</ion-note>
+
         </div>
-        <div class="profile_info">
-          <ion-title>{{student_name}}</ion-title>
-          <ion-note>{{student_id}}</ion-note>
-        </div>
+    
         
       </ion-item>
+      
+      
     </ion-menu-toggle> 
+    <div class="menu-list">
     <ion-menu-toggle>
-      <ion-item [routerLink]="['/','home','librarianside']">
+      <ion-item [routerLink]="['/','home','librarianside']"> <ion-icon color="primary" name="scan-sharp"></ion-icon>
         Librarian Side
       </ion-item>
     </ion-menu-toggle>
     <ion-menu-toggle>
       
-      <ion-item [routerLink]="['/','home','librarystudentside']">
+      <ion-item [routerLink]="['/','home','librarystudentside']"> <ion-icon color="primary" name="book-outline"></ion-icon>
         Library StudentSide
       </ion-item>
     </ion-menu-toggle>
     <ion-menu-toggle>
-      <ion-item [routerLink]="['/','home','outpass-studentside']">
+      <ion-item [routerLink]="['/','home','outpass-studentside']"> <ion-icon color="primary" name="shuffle"></ion-icon>
         Outpass
       </ion-item>
     </ion-menu-toggle>
     <ion-menu-toggle>
-      <ion-item (click)='onLogout()'>
+     
+      <ion-item (click)='onLogout()'> <ion-icon color="primary" name="exit-outline"></ion-icon>
         Logout
       </ion-item>
+    
     </ion-menu-toggle>
+  </div>
     
 
     
@@ -46,8 +52,8 @@
  </ion-router-outlet>
 
 
-<ion-tabs  >
-  <ion-tab-bar slot="bottom">
+<ion-tabs >
+  <ion-tab-bar slot="bottom" class="footer"  >
    
 
   <ion-tab-button tab="newsfeed">
