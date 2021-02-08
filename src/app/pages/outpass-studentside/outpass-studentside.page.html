@@ -1,50 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Outpass Studentside</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        To register going out press the floating icon below
+      </ion-col>
+    </ion-row>
+  </ion-grid> 
 
-<ion-toolbar color="medium">
- <ion-buttons slot="start">
-  <ion-back-button [defaultHref]="['/','home']"></ion-back-button>
-</ion-buttons></ion-toolbar>
- 
-<ion-content mode=md class='ion-padding'> 
-   <ion-title color="light"class="title-outpass" >Outpass</ion-title>
-  
-  <div ><ion-card class="card-in">
-  <ion-item><ion-icon class="reason" color="tertiary"  slot="start" name="text"></ion-icon>
-    <ion-label mode=md style="text-overflow: ellipsis;" class="reason-text"  position='floating'>
-      Purpose 
-    </ion-label>
-    <ion-input [(ngModel)]='Purpose_Outing'  >
+  <ion-list>
+    <ion-item *ngFor='let log of Register_Logs'>
+      <ion-label>{{log.purpose}}</ion-label>
+      <ion-label>{{log.student_phoneno}}</ion-label>
+      <ion-label>{{log.intime}}</ion-label>
+      <ion-label>{{log.outtime}}</ion-label>
 
-    </ion-input>
-  </ion-item>
+    </ion-item>
+  </ion-list>
 
-  <ion-item><ion-icon class="reason" color="tertiary"  slot="start" name="call-outline"></ion-icon>
-    <ion-label mode=md style="text-overflow: ellipsis;" class="reason-text" position='floating'>
-       Phone Number
-    </ion-label>
-    <ion-input [(ngModel)]='PhoneNo_Outing'  >
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)='OutpassForm()'>
+      <ion-icon name="arrow-forward-circle"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
-    </ion-input>
-  </ion-item><p class="message-outpass">Come back soon......!</p></ion-card>
-  
-  <br>
-<br>
-<br>
-<br>
-<br>
-
-
-<ion-button  class="out-break" color="medium"> <ion-icon slot="start" name="scan"></ion-icon>
-   QR Code
-</ion-button>
-
-<ion-button  class="out-break" color="medium" (click)='LongBreakForm()'> <ion-icon slot="start" name="scan"></ion-icon>
-   long break
-</ion-button>
-
-
-</div></ion-content>
-<br>
-
+</ion-content>
 
 
 

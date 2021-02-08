@@ -3,4 +3,10 @@ export class StudentModel{
 }
 }
 
+export class OutpassRegisterLog{
+        constructor(public purpose : string, public student_phoneno : number,public intime : number, public outtime : string){
+
+        }
+}
+
 
